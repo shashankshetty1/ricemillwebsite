@@ -1,5 +1,16 @@
 import { useState, useEffect } from "react";
-import { MapPin, Phone, Mail, ChevronLeft, ChevronRight } from "lucide-react";
+import {
+  MapPin,
+  Phone,
+  Mail,
+  ChevronLeft,
+  ChevronRight,
+  ArrowRight,
+  Star,
+  Shield,
+  Award,
+  Users,
+} from "lucide-react";
 
 const Index = () => {
   const [formData, setFormData] = useState({
@@ -10,6 +21,7 @@ const Index = () => {
 
   // Carousel state for About section
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [isVisible, setIsVisible] = useState(false);
 
   // Rice mill story images
   const storyImages = [
@@ -63,14 +75,43 @@ const Index = () => {
     },
   ];
 
-  // Auto-advance carousel
+  // Auto-advance carousel with pause on hover
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % storyImages.length);
-    }, 4000); // Change slide every 4 seconds
+    }, 5000); // 5 seconds
 
     return () => clearInterval(interval);
   }, [storyImages.length]);
+
+  // Intersection Observer for animations
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("animate-in");
+          }
+        });
+      },
+      { threshold: 0.1 },
+    );
+
+    document.querySelectorAll(".animate-on-scroll").forEach((el) => {
+      observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  // Smooth scroll function
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    element?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  };
 
   // Carousel navigation functions
   const nextSlide = () => {
@@ -89,131 +130,286 @@ const Index = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    alert("Thank you for your message! We will get back to you soon.");
-    setFormData({ name: "", email: "", message: "" });
+    // Add form validation animation
+    const form = e.target as HTMLFormElement;
+    form.classList.add("animate-pulse");
+    setTimeout(() => {
+      form.classList.remove("animate-pulse");
+      alert("Thank you for your message! We will get back to you soon.");
+      setFormData({ name: "", email: "", message: "" });
+    }, 500);
   };
 
   return (
-    <div className="min-h-screen bg-rice-50">
-      {/* Navigation */}
-      <nav className="bg-white/95 backdrop-blur-sm shadow-sm fixed w-full top-0 z-50">
+    <div className="min-h-screen bg-rice-50 scroll-smooth">
+      {/* Add custom CSS for enhanced animations */}
+      <style jsx>{`
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        @keyframes slideInRight {
+          from {
+            opacity: 0;
+            transform: translateX(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+
+        @keyframes scaleIn {
+          from {
+            opacity: 0;
+            transform: scale(0.95);
+          }
+          to {
+            opacity: 1;
+            transform: scale(1);
+          }
+        }
+
+        .animate-in {
+          animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .animate-slide-right {
+          animation: slideInRight 0.8s ease-out forwards;
+        }
+
+        .animate-scale {
+          animation: scaleIn 0.6s ease-out forwards;
+        }
+
+        .glass-effect {
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+        }
+
+        .gradient-text {
+          background: linear-gradient(135deg, #22c55e, #16a34a, #15803d);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+        }
+
+        .floating {
+          animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+          0%,
+          100% {
+            transform: translateY(0px);
+          }
+          50% {
+            transform: translateY(-10px);
+          }
+        }
+
+        .parallax {
+          transform: translateZ(0);
+          will-change: transform;
+        }
+      `}</style>
+
+      {/* Enhanced Navigation */}
+      <nav className="glass-effect bg-white/90 shadow-lg border-b border-green-100 fixed w-full top-0 z-50 transition-all duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            <div className="flex items-center">
-              <h1 className="text-xl font-bold text-green-700">
+            <div className="flex items-center group">
+              <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-green-700 rounded-full flex items-center justify-center mr-3 group-hover:scale-110 transition-transform duration-300">
+                <span className="text-white font-bold text-lg">H</span>
+              </div>
+              <h1 className="text-xl font-bold gradient-text group-hover:scale-105 transition-transform duration-300">
                 Harekrishna Ricemill
               </h1>
             </div>
             <div className="hidden md:block">
               <div className="ml-10 flex items-baseline space-x-4">
-                <a
-                  href="#home"
-                  className="text-green-700 hover:text-green-800 px-3 py-2 text-sm font-medium transition-colors"
-                >
-                  Home
-                </a>
-                <a
-                  href="#about"
-                  className="text-green-700 hover:text-green-800 px-3 py-2 text-sm font-medium transition-colors"
-                >
-                  About
-                </a>
-                <a
-                  href="#products"
-                  className="text-green-700 hover:text-green-800 px-3 py-2 text-sm font-medium transition-colors"
-                >
-                  Products
-                </a>
-                <a
-                  href="#contact"
-                  className="text-green-700 hover:text-green-800 px-3 py-2 text-sm font-medium transition-colors"
-                >
-                  Contact
-                </a>
+                {[
+                  { name: "Home", id: "home" },
+                  { name: "About", id: "about" },
+                  { name: "Products", id: "products" },
+                  { name: "Contact", id: "contact" },
+                ].map((item) => (
+                  <button
+                    key={item.name}
+                    onClick={() => scrollToSection(item.id)}
+                    className="relative text-green-700 hover:text-green-800 px-4 py-2 text-sm font-medium transition-all duration-300 group"
+                  >
+                    {item.name}
+                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-green-500 to-green-700 group-hover:w-full transition-all duration-300"></span>
+                  </button>
+                ))}
               </div>
             </div>
           </div>
         </div>
       </nav>
 
-      {/* Hero Section */}
+      {/* Enhanced Hero Section */}
       <section
         id="home"
         className="relative min-h-screen flex items-center justify-center overflow-hidden"
       >
+        {/* Parallax Background */}
         <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          className="absolute inset-0 parallax transition-transform duration-700"
           style={{
-            backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://images.pexels.com/photos/32572865/pexels-photo-32572865.jpeg')`,
+            backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3)), url('https://images.pexels.com/photos/32572865/pexels-photo-32572865.jpeg')`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundAttachment: "fixed",
           }}
         />
-        <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-            Harekrishna Ricemill
+
+        {/* Animated overlay */}
+        <div className="absolute inset-0 bg-gradient-to-br from-green-900/20 via-transparent to-green-800/30"></div>
+
+        {/* Floating elements */}
+        <div className="absolute top-20 left-10 w-20 h-20 bg-green-400/20 rounded-full floating"></div>
+        <div
+          className="absolute bottom-32 right-16 w-16 h-16 bg-yellow-400/20 rounded-full floating"
+          style={{ animationDelay: "2s" }}
+        ></div>
+        <div
+          className="absolute top-1/3 right-1/4 w-12 h-12 bg-green-300/30 rounded-full floating"
+          style={{ animationDelay: "4s" }}
+        ></div>
+
+        <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 animate-on-scroll">
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight animate-in">
+            <span className="inline-block animate-scale">Harekrishna</span>
+            <br />
+            <span
+              className="inline-block animate-scale"
+              style={{ animationDelay: "0.2s" }}
+            >
+              Ricemill
+            </span>
           </h1>
-          <p className="text-xl md:text-2xl mb-8 text-rice-100 font-light leading-relaxed max-w-3xl mx-auto">
+          <p
+            className="text-xl md:text-2xl mb-8 text-rice-100 font-light leading-relaxed max-w-3xl mx-auto animate-in"
+            style={{ animationDelay: "0.4s" }}
+          >
             ಸಾಂಪ್ರದಾಯಿಕ ಮೌಲ್ಯಗಳು ಮತ್ತು ಆಧುನಿಕ ತಂತ್ರಜ್ಞಾನದೊಂದಿಗೆ ಪ್ರೀಮಿಯಂ
             ಗುಣಮಟ್ಟದ ಅಕ್ಕಿ ಸಂಸ್ಕರಣೆ. ಮೂರು ದಶಕಗಳಿಗೂ ಹೆಚ್ಚು ಕಾಲ ಅತ್ಯುತ್ತಮ ಅಕ್ಕಿ
             ಉತ್ಪಾದನೆಗಳೊಂದಿಗೆ ಸಮುದಾಯಗಳಿಗೆ ಸೇವೆ ಸಲ್ಲಿಸುತ್ತಿದೆ.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a
-              href="#products"
-              className="bg-green-600 hover:bg-green-700 text-white px-8 py-4 rounded-lg text-lg font-medium transition-colors shadow-lg"
+          <div
+            className="flex flex-col sm:flex-row gap-4 justify-center animate-in"
+            style={{ animationDelay: "0.6s" }}
+          >
+            <button
+              onClick={() => scrollToSection("products")}
+              className="group bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white px-8 py-4 rounded-xl text-lg font-semibold transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105 hover:-translate-y-1"
             >
-              Our Products
-            </a>
-            <a
-              href="#contact"
-              className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-green-700 px-8 py-4 rounded-lg text-lg font-medium transition-colors"
+              <span className="flex items-center justify-center">
+                Our Products
+                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
+              </span>
+            </button>
+            <button
+              onClick={() => scrollToSection("contact")}
+              className="group bg-transparent border-2 border-white text-white hover:bg-white hover:text-green-700 px-8 py-4 rounded-xl text-lg font-semibold transition-all duration-300 backdrop-blur-sm"
             >
               Contact Us
-            </a>
+            </button>
+          </div>
+        </div>
+
+        {/* Scroll indicator */}
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+          <div className="w-6 h-10 border-2 border-white rounded-full flex justify-center">
+            <div className="w-1 h-3 bg-white rounded-full mt-2 animate-pulse"></div>
           </div>
         </div>
       </section>
 
-      {/* About Section */}
-      <section id="about" className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Enhanced About Section */}
+      <section id="about" className="py-20 bg-white relative overflow-hidden">
+        {/* Background pattern */}
+        <div className="absolute inset-0 opacity-5">
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23059669' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+            }}
+          ></div>
+        </div>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-green-800 mb-6">
+            <div className="animate-on-scroll">
+              <h2 className="text-3xl md:text-4xl font-bold gradient-text mb-6">
                 Our Story & Mission
               </h2>
               <div className="space-y-6 text-gray-700 text-lg leading-relaxed">
-                <p>
+                <p className="transform hover:scale-105 transition-transform duration-300 p-4 rounded-lg hover:bg-green-50">
                   ಉಡುಪಿ ಜಿಲ್ಲೆಯ ಕೊರ್ಗಿ ಅರ್ಕೋಲಿಯಲ್ಲಿ ವಿಜಯ್ ಶೆಟ್ಟಿ ಸ್ಥಾಪಿಸಿದ
                   ಹರೇಕೃಷ್ಣ ಅಕ್ಕಿ ಗಿರಣಿಯು ಹಲವಾರು ವರ್ಷಗಳಿಂದ ಸ್ಥಳೀಯ ಸಮುದಾಯಕ್ಕೆ
                   ಉತ್ತಮ ಗುಣಮಟ್ಟದ ಬೇಯಿಸಿದ ಅಕ್ಕಿಯೊಂದಿಗೆ ಸೇವೆ ಸಲ್ಲಿಸುತ್ತಿದೆ.
                 </p>
-                <p>
+                <p className="transform hover:scale-105 transition-transform duration-300 p-4 rounded-lg hover:bg-green-50">
                   ಸಮಂಜಸವಾದ ಬೆಲೆಯಲ್ಲಿ ಅಕ್ಕಿಯನ್ನು ನೀಡುವುದಕ್ಕೆ ಹೆಸರುವಾಸಿಯಾಗಿರುವ
                   ನಾವು, ವಿಶ್ವಾಸಾರ್ಹತೆ ಮತ್ತು ಶ್ರೇಷ್ಠತೆಗಾಗಿ ಕುಂದಾಪುರದಾದ್ಯಂತ ಬಲವಾದ
                   ಖ್ಯಾತಿಯನ್ನು ಗಳಿಸಿದ್ದೇವೆ.
                 </p>
-                <p>
+                <p className="transform hover:scale-105 transition-transform duration-300 p-4 rounded-lg hover:bg-green-50">
                   ಗುಣಮಟ್ಟಕ್ಕೆ ನಮ್ಮ ಬದ್ಧತೆಯು ನಾವು ಒದಗಿಸುವ ಪ್ರತಿಯೊಂದು ಅಕ್ಕಿ
                   ಧಾನ್ಯವು ಅತ್ಯುನ್ನತ ಮಾನದಂಡಗಳನ್ನು ಪೂರೈಸುತ್ತದೆ ಎಂದು
                   ಖಚಿತಪಡಿಸುತ್ತದೆ. ಕುಟುಂಬ ಸ್ವಾಮ್ಯದ ವ್ಯವಹಾರವಾಗಿ, ನಮ್ಮ ಗ್ರಾಹಕರಿಗೆ
                   ಸಮರ್ಪಣೆ ಮತ್ತು ಸಾಂಪ್ರದಾಯಿಕ ಮೌಲ್ಯಗಳು ಮತ್ತು ಆಧುನಿಕ ಅಗತ್ಯಗಳ ಮೇಲೆ
-                  ಕೇಂದ್ರೀಕರಿಸುವ ಮೂಲಕ ಸೇವೆ ಸಲ್ಲಿಸುವಲ್ಲಿ ನಾವು ಹ��ಮ್ಮೆಪಡುತ್ತೇವೆ.
+                  ಕೇಂದ್ರೀಕರಿಸುವ ಮೂಲಕ ಸೇವೆ ಸಲ್ಲಿಸುವಲ್ಲಿ ನಾವು ಹೆಮ್ಮೆಪಡುತ್ತೇವೆ.
                 </p>
               </div>
+
+              {/* Key stats */}
+              <div className="grid grid-cols-3 gap-6 mt-8">
+                {[
+                  { icon: Award, label: "Years Experience", value: "30+" },
+                  { icon: Users, label: "Happy Customers", value: "5000+" },
+                  { icon: Shield, label: "Quality Guarantee", value: "100%" },
+                ].map((stat, index) => (
+                  <div
+                    key={index}
+                    className="text-center group hover:scale-110 transition-transform duration-300"
+                  >
+                    <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center mx-auto mb-2 group-hover:rotate-12 transition-transform duration-300">
+                      <stat.icon className="w-6 h-6 text-white" />
+                    </div>
+                    <div className="text-2xl font-bold text-green-800">
+                      {stat.value}
+                    </div>
+                    <div className="text-sm text-gray-600">{stat.label}</div>
+                  </div>
+                ))}
+              </div>
             </div>
-            <div className="relative rounded-2xl shadow-2xl overflow-hidden h-96 lg:h-full min-h-[400px] bg-gray-100">
+
+            {/* Enhanced Carousel */}
+            <div className="relative rounded-2xl shadow-2xl overflow-hidden h-96 lg:h-full min-h-[500px] bg-gray-100 group animate-on-scroll">
               {/* Main carousel image */}
               <div
-                className="w-full h-full bg-cover bg-center transition-all duration-500 ease-in-out"
+                className="w-full h-full bg-cover bg-center transition-all duration-700 ease-in-out transform group-hover:scale-105"
                 style={{
                   backgroundImage: `url('${storyImages[currentSlide].url}')`,
                 }}
               />
 
-              {/* Navigation arrows */}
+              {/* Enhanced navigation arrows */}
               <button
                 onClick={prevSlide}
-                className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-all duration-200 z-10"
+                className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black/60 hover:bg-black/80 text-white p-3 rounded-full transition-all duration-300 z-10 opacity-0 group-hover:opacity-100 hover:scale-110"
                 aria-label="Previous image"
               >
                 <ChevronLeft className="w-6 h-6" />
@@ -221,28 +417,28 @@ const Index = () => {
 
               <button
                 onClick={nextSlide}
-                className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-all duration-200 z-10"
+                className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black/60 hover:bg-black/80 text-white p-3 rounded-full transition-all duration-300 z-10 opacity-0 group-hover:opacity-100 hover:scale-110"
                 aria-label="Next image"
               >
                 <ChevronRight className="w-6 h-6" />
               </button>
 
-              {/* Caption overlay */}
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6">
+              {/* Enhanced caption overlay */}
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent p-6 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
                 <p className="text-white text-sm md:text-base font-medium">
                   {storyImages[currentSlide].caption}
                 </p>
               </div>
 
-              {/* Dot indicators */}
+              {/* Enhanced dot indicators */}
               <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-10">
                 {storyImages.map((_, index) => (
                   <button
                     key={index}
                     onClick={() => goToSlide(index)}
-                    className={`w-2 h-2 rounded-full transition-all duration-200 ${
+                    className={`w-2 h-2 rounded-full transition-all duration-300 hover:scale-125 ${
                       index === currentSlide
-                        ? "bg-white scale-125"
+                        ? "bg-white scale-125 shadow-lg"
                         : "bg-white/50 hover:bg-white/75"
                     }`}
                     aria-label={`Go to slide ${index + 1}`}
@@ -250,8 +446,18 @@ const Index = () => {
                 ))}
               </div>
 
-              {/* Slide counter */}
-              <div className="absolute top-4 right-4 bg-black/50 text-white px-3 py-1 rounded-full text-sm">
+              {/* Progress bar */}
+              <div className="absolute top-0 left-0 right-0 h-1 bg-black/20">
+                <div
+                  className="h-full bg-gradient-to-r from-green-400 to-green-600 transition-all duration-300"
+                  style={{
+                    width: `${((currentSlide + 1) / storyImages.length) * 100}%`,
+                  }}
+                ></div>
+              </div>
+
+              {/* Slide counter with enhanced styling */}
+              <div className="absolute top-4 right-4 bg-black/60 text-white px-3 py-1 rounded-full text-sm backdrop-blur-sm">
                 {currentSlide + 1} / {storyImages.length}
               </div>
             </div>
@@ -259,128 +465,154 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Products Section */}
-      <section id="products" className="py-20 bg-rice-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-green-800 mb-4">
+      {/* Enhanced Products Section */}
+      <section
+        id="products"
+        className="py-20 bg-gradient-to-br from-rice-50 to-green-50 relative"
+      >
+        {/* Background decoration */}
+        <div className="absolute top-0 left-0 w-full h-full overflow-hidden">
+          <div className="absolute -top-4 -left-4 w-72 h-72 bg-green-200 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob"></div>
+          <div className="absolute -bottom-8 -right-4 w-72 h-72 bg-yellow-200 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-2000"></div>
+          <div className="absolute top-1/2 left-1/3 w-72 h-72 bg-green-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-4000"></div>
+        </div>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+          <div className="text-center mb-16 animate-on-scroll">
+            <h2 className="text-3xl md:text-4xl font-bold gradient-text mb-4">
               Our Premium Products
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
               Carefully processed and quality-tested rice varieties to meet all
               your culinary needs
             </p>
+            <div className="w-24 h-1 bg-gradient-to-r from-green-500 to-green-700 mx-auto mt-4 rounded-full"></div>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            {/* Raw Rice */}
-            <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+            {[
+              {
+                image:
+                  "https://images.pexels.com/photos/586615/pexels-photo-586615.jpeg",
+                title: "Raw Rice",
+                description:
+                  "Unprocessed, natural rice grains with full nutritional value. Perfect for traditional cooking methods and maximum health benefits.",
+                badge: "Premium Quality",
+                color: "from-green-500 to-green-600",
+              },
+              {
+                image:
+                  "https://images.pexels.com/photos/26341190/pexels-photo-26341190.jpeg",
+                title: "Boiled Rice",
+                description:
+                  "Steam-processed rice that retains essential nutrients while offering enhanced texture and longer shelf life. Ideal for daily consumption.",
+                badge: "Popular Choice",
+                color: "from-blue-500 to-blue-600",
+              },
+              {
+                image:
+                  "https://images.pexels.com/photos/586615/pexels-photo-586615.jpeg",
+                title: "Broken Rice",
+                description:
+                  "Cost-effective broken rice pieces perfect for making traditional dishes, animal feed, and various culinary preparations.",
+                badge: "Economic Option",
+                color: "from-orange-500 to-orange-600",
+              },
+            ].map((product, index) => (
               <div
-                className="h-64 bg-cover bg-center"
-                style={{
-                  backgroundImage: `url('https://images.pexels.com/photos/586615/pexels-photo-586615.jpeg')`,
-                }}
-              />
-              <div className="p-8">
-                <h3 className="text-2xl font-bold text-green-800 mb-4">
-                  Raw Rice
-                </h3>
-                <p className="text-gray-600 mb-6 leading-relaxed">
-                  Unprocessed, natural rice grains with full nutritional value.
-                  Perfect for traditional cooking methods and maximum health
-                  benefits.
-                </p>
-                <div className="flex justify-between items-center">
-                  <span className="text-green-600 font-semibold">
-                    Premium Quality
-                  </span>
-                  <button className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg transition-colors">
-                    Learn More
-                  </button>
-                </div>
-              </div>
-            </div>
+                key={index}
+                className="group bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 animate-on-scroll"
+                style={{ animationDelay: `${index * 0.2}s` }}
+              >
+                {/* Product image with overlay */}
+                <div className="relative h-64 overflow-hidden">
+                  <div
+                    className="h-full bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
+                    style={{ backgroundImage: `url('${product.image}')` }}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 
-            {/* Boiled Rice */}
-            <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
-              <div
-                className="h-64 bg-cover bg-center"
-                style={{
-                  backgroundImage: `url('https://images.pexels.com/photos/26341190/pexels-photo-26341190.jpeg')`,
-                }}
-              />
-              <div className="p-8">
-                <h3 className="text-2xl font-bold text-green-800 mb-4">
-                  Boiled Rice
-                </h3>
-                <p className="text-gray-600 mb-6 leading-relaxed">
-                  Steam-processed rice that retains essential nutrients while
-                  offering enhanced texture and longer shelf life. Ideal for
-                  daily consumption.
-                </p>
-                <div className="flex justify-between items-center">
-                  <span className="text-green-600 font-semibold">
-                    Popular Choice
-                  </span>
-                  <button className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg transition-colors">
-                    Learn More
-                  </button>
-                </div>
-              </div>
-            </div>
+                  {/* Badge */}
+                  <div
+                    className={`absolute top-4 left-4 bg-gradient-to-r ${product.color} text-white px-3 py-1 rounded-full text-sm font-semibold shadow-lg`}
+                  >
+                    {product.badge}
+                  </div>
 
-            {/* Broken Rice */}
-            <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
-              <div
-                className="h-64 bg-cover bg-center"
-                style={{
-                  backgroundImage: `url('https://images.pexels.com/photos/586615/pexels-photo-586615.jpeg')`,
-                }}
-              />
-              <div className="p-8">
-                <h3 className="text-2xl font-bold text-green-800 mb-4">
-                  Broken Rice
-                </h3>
-                <p className="text-gray-600 mb-6 leading-relaxed">
-                  Cost-effective broken rice pieces perfect for making
-                  traditional dishes, animal feed, and various culinary
-                  preparations.
-                </p>
-                <div className="flex justify-between items-center">
-                  <span className="text-green-600 font-semibold">
-                    Economic Option
-                  </span>
-                  <button className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg transition-colors">
-                    Learn More
-                  </button>
+                  {/* Star rating */}
+                  <div className="absolute top-4 right-4 flex space-x-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    {[...Array(5)].map((_, i) => (
+                      <Star
+                        key={i}
+                        className="w-4 h-4 text-yellow-400 fill-current"
+                      />
+                    ))}
+                  </div>
                 </div>
+
+                <div className="p-8">
+                  <h3 className="text-2xl font-bold text-green-800 mb-4 group-hover:text-green-700 transition-colors duration-300">
+                    {product.title}
+                  </h3>
+                  <p className="text-gray-600 mb-6 leading-relaxed">
+                    {product.description}
+                  </p>
+
+                  <div className="flex justify-between items-center">
+                    <span
+                      className={`bg-gradient-to-r ${product.color} bg-clip-text text-transparent font-semibold text-lg`}
+                    >
+                      {product.badge}
+                    </span>
+                    <button className="group/btn bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white px-6 py-2 rounded-lg transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-105">
+                      <span className="flex items-center">
+                        Learn More
+                        <ArrowRight className="ml-2 w-4 h-4 group-hover/btn:translate-x-1 transition-transform duration-300" />
+                      </span>
+                    </button>
+                  </div>
+                </div>
+
+                {/* Hover effect border */}
+                <div className="absolute inset-0 border-2 border-transparent group-hover:border-green-300 rounded-2xl transition-colors duration-300 pointer-events-none"></div>
               </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Contact Section */}
-      <section id="contact" className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-green-800 mb-4">
+      {/* Enhanced Contact Section */}
+      <section id="contact" className="py-20 bg-white relative overflow-hidden">
+        {/* Background pattern */}
+        <div className="absolute inset-0 opacity-5">
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-opacity='0.1'%3E%3Cpolygon fill='%23059669' points='50 0 60 40 100 50 60 60 50 100 40 60 0 50 40 40'/%3E%3C/g%3E%3C/svg%3E")`,
+            }}
+          ></div>
+        </div>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+          <div className="text-center mb-16 animate-on-scroll">
+            <h2 className="text-3xl md:text-4xl font-bold gradient-text mb-4">
               Get in Touch
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
               We'd love to hear from you. Send us a message and we'll respond as
               soon as possible.
             </p>
+            <div className="w-24 h-1 bg-gradient-to-r from-green-500 to-green-700 mx-auto mt-4 rounded-full"></div>
           </div>
 
           <div className="grid lg:grid-cols-2 gap-12">
-            {/* Contact Form */}
-            <div className="bg-rice-50 rounded-2xl p-8 shadow-lg">
+            {/* Enhanced Contact Form */}
+            <div className="glass-effect bg-gradient-to-br from-rice-50 to-green-50 rounded-2xl p-8 shadow-xl animate-on-scroll">
               <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
+                <div className="group">
                   <label
                     htmlFor="name"
-                    className="block text-sm font-medium text-green-800 mb-2"
+                    className="block text-sm font-medium text-green-800 mb-2 group-focus-within:text-green-600 transition-colors duration-300"
                   >
                     Full Name
                   </label>
@@ -391,14 +623,14 @@ const Index = () => {
                     onChange={(e) =>
                       setFormData({ ...formData, name: e.target.value })
                     }
-                    className="w-full px-4 py-3 border border-green-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all"
+                    className="w-full px-4 py-3 border-2 border-green-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all duration-300 hover:border-green-300 bg-white/80 backdrop-blur-sm"
                     required
                   />
                 </div>
-                <div>
+                <div className="group">
                   <label
                     htmlFor="email"
-                    className="block text-sm font-medium text-green-800 mb-2"
+                    className="block text-sm font-medium text-green-800 mb-2 group-focus-within:text-green-600 transition-colors duration-300"
                   >
                     Email Address
                   </label>
@@ -409,14 +641,14 @@ const Index = () => {
                     onChange={(e) =>
                       setFormData({ ...formData, email: e.target.value })
                     }
-                    className="w-full px-4 py-3 border border-green-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all"
+                    className="w-full px-4 py-3 border-2 border-green-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all duration-300 hover:border-green-300 bg-white/80 backdrop-blur-sm"
                     required
                   />
                 </div>
-                <div>
+                <div className="group">
                   <label
                     htmlFor="message"
-                    className="block text-sm font-medium text-green-800 mb-2"
+                    className="block text-sm font-medium text-green-800 mb-2 group-focus-within:text-green-600 transition-colors duration-300"
                   >
                     Message
                   </label>
@@ -427,42 +659,51 @@ const Index = () => {
                     onChange={(e) =>
                       setFormData({ ...formData, message: e.target.value })
                     }
-                    className="w-full px-4 py-3 border border-green-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all resize-none"
+                    className="w-full px-4 py-3 border-2 border-green-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all duration-300 resize-none hover:border-green-300 bg-white/80 backdrop-blur-sm"
                     required
                   />
                 </div>
                 <button
                   type="submit"
-                  className="w-full bg-green-600 hover:bg-green-700 text-white py-4 rounded-lg text-lg font-medium transition-colors shadow-lg"
+                  className="w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white py-4 rounded-lg text-lg font-semibold transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 hover:-translate-y-1"
                 >
-                  Send Message
+                  <span className="flex items-center justify-center">
+                    Send Message
+                    <ArrowRight className="ml-2 w-5 h-5" />
+                  </span>
                 </button>
               </form>
             </div>
 
-            {/* Contact Information */}
-            <div className="space-y-8">
-              <div className="bg-green-50 rounded-2xl p-8">
-                <h3 className="text-2xl font-bold text-green-800 mb-6">
+            {/* Enhanced Contact Information */}
+            <div className="space-y-8 animate-on-scroll">
+              <div className="glass-effect bg-gradient-to-br from-green-50 to-rice-50 rounded-2xl p-8 shadow-xl">
+                <h3 className="text-2xl font-bold gradient-text mb-6">
                   Contact Information
                 </h3>
-                <div className="space-y-4">
-                  <div className="flex items-center">
-                    <Phone className="w-5 h-5 text-green-600 mr-3" />
+                <div className="space-y-6">
+                  <div className="flex items-center group hover:scale-105 transition-transform duration-300">
+                    <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center mr-4 group-hover:rotate-12 transition-transform duration-300">
+                      <Phone className="w-6 h-6 text-white" />
+                    </div>
                     <div className="text-gray-700">
-                      <p>📞 8971148263</p>
-                      <p>📞 8105991344</p>
+                      <p className="font-semibold">📞 8971148263</p>
+                      <p className="font-semibold">📞 8105991344</p>
                     </div>
                   </div>
-                  <div className="flex items-center">
-                    <Mail className="w-5 h-5 text-green-600 mr-3" />
-                    <span className="text-gray-700">
+                  <div className="flex items-center group hover:scale-105 transition-transform duration-300">
+                    <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center mr-4 group-hover:rotate-12 transition-transform duration-300">
+                      <Mail className="w-6 h-6 text-white" />
+                    </div>
+                    <span className="text-gray-700 font-semibold">
                       harekrishnaricemill12@gmail.com
                     </span>
                   </div>
-                  <div className="flex items-start">
-                    <MapPin className="w-5 h-5 text-green-600 mr-3 mt-1" />
-                    <span className="text-gray-700">
+                  <div className="flex items-start group hover:scale-105 transition-transform duration-300">
+                    <div className="w-12 h-12 bg-gradient-to-br from-red-500 to-red-600 rounded-full flex items-center justify-center mr-4 mt-1 group-hover:rotate-12 transition-transform duration-300">
+                      <MapPin className="w-6 h-6 text-white" />
+                    </div>
+                    <span className="text-gray-700 font-semibold leading-relaxed">
                       Korgi Arkoli,
                       <br />
                       Kundapura Taluk,
@@ -473,8 +714,8 @@ const Index = () => {
                 </div>
               </div>
 
-              {/* Google Map */}
-              <div className="bg-gray-100 rounded-2xl overflow-hidden shadow-lg">
+              {/* Enhanced Google Map */}
+              <div className="glass-effect bg-gray-100 rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-shadow duration-300">
                 <iframe
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d124414.96853951778!2d74.6488!3d13.6288!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bbcbb4a3b9a6b43%3A0x6e3b4a5f7c8d9e2a!2sKundapura%2C%20Karnataka!5e0!3m2!1sen!2sin!4v1703123456789!5m2!1sen!2sin"
                   width="100%"
@@ -484,6 +725,7 @@ const Index = () => {
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
                   title="Harekrishna Ricemill Location - Korgi Arkoli, Kundapura"
+                  className="hover:scale-105 transition-transform duration-700"
                 ></iframe>
               </div>
             </div>
@@ -491,69 +733,138 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-green-800 text-white py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Enhanced Footer */}
+      <footer className="bg-gradient-to-br from-green-800 to-green-900 text-white py-12 relative overflow-hidden">
+        {/* Background decoration */}
+        <div className="absolute inset-0 opacity-10">
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-opacity='0.1'%3E%3Cpath d='M50 0v100M0 50h100' stroke='%23ffffff' stroke-width='0.5'/%3E%3C/g%3E%3C/svg%3E")`,
+            }}
+          ></div>
+        </div>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="grid md:grid-cols-3 gap-8">
-            <div>
-              <h3 className="text-2xl font-bold mb-4">Harekrishna Ricemill</h3>
+            <div className="animate-on-scroll">
+              <div className="flex items-center mb-4">
+                <div className="w-12 h-12 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center mr-3">
+                  <span className="text-white font-bold text-xl">H</span>
+                </div>
+                <h3 className="text-2xl font-bold">Harekrishna Ricemill</h3>
+              </div>
               <p className="text-green-100 leading-relaxed">
                 Premium quality rice processing with traditional values and
                 modern technology. Your trusted partner for the finest rice
                 products.
               </p>
+
+              {/* Social media icons placeholder */}
+              <div className="flex space-x-4 mt-6">
+                {["facebook", "instagram", "twitter"].map((social) => (
+                  <div
+                    key={social}
+                    className="w-10 h-10 bg-green-700 hover:bg-green-600 rounded-full flex items-center justify-center cursor-pointer transition-colors duration-300 transform hover:scale-110"
+                  >
+                    <span className="text-sm font-bold">
+                      {social[0].toUpperCase()}
+                    </span>
+                  </div>
+                ))}
+              </div>
             </div>
-            <div>
-              <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
-              <ul className="space-y-2 text-green-100">
-                <li>
-                  <a
-                    href="#home"
-                    className="hover:text-white transition-colors"
-                  >
-                    Home
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#about"
-                    className="hover:text-white transition-colors"
-                  >
-                    About
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#products"
-                    className="hover:text-white transition-colors"
-                  >
-                    Products
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#contact"
-                    className="hover:text-white transition-colors"
-                  >
-                    Contact
-                  </a>
-                </li>
+
+            <div className="animate-on-scroll">
+              <h4 className="text-lg font-semibold mb-4 text-green-300">
+                Quick Links
+              </h4>
+              <ul className="space-y-3 text-green-100">
+                {[
+                  { name: "Home", id: "home" },
+                  { name: "About", id: "about" },
+                  { name: "Products", id: "products" },
+                  { name: "Contact", id: "contact" },
+                ].map((link) => (
+                  <li key={link.name}>
+                    <button
+                      onClick={() => scrollToSection(link.id)}
+                      className="hover:text-white transition-colors duration-300 hover:translate-x-2 transform inline-block"
+                    >
+                      {link.name}
+                    </button>
+                  </li>
+                ))}
               </ul>
             </div>
-            <div>
-              <h4 className="text-lg font-semibold mb-4">Contact Info</h4>
-              <div className="space-y-2 text-green-100">
-                <p>📞 8971148263, 8105991344</p>
-                <p>✉️ harekrishnaricemill12@gmail.com</p>
-                <p>📍 Korgi Arkoli, Kundapura Taluk, Udupi District</p>
+
+            <div className="animate-on-scroll">
+              <h4 className="text-lg font-semibold mb-4 text-green-300">
+                Contact Info
+              </h4>
+              <div className="space-y-3 text-green-100">
+                <p className="flex items-center hover:text-white transition-colors duration-300">
+                  <span className="mr-2">📞</span> 8971148263, 8105991344
+                </p>
+                <p className="flex items-center hover:text-white transition-colors duration-300">
+                  <span className="mr-2">✉️</span>{" "}
+                  harekrishnaricemill12@gmail.com
+                </p>
+                <p className="flex items-start hover:text-white transition-colors duration-300">
+                  <span className="mr-2 mt-1">📍</span>
+                  <span>Korgi Arkoli, Kundapura Taluk, Udupi District</span>
+                </p>
               </div>
             </div>
           </div>
+
           <div className="border-t border-green-700 mt-8 pt-8 text-center text-green-100">
-            <p>&copy; 2024 Harekrishna Ricemill. All rights reserved.</p>
+            <p className="flex items-center justify-center">
+              &copy; 2024 Harekrishna Ricemill. All rights reserved.
+              <span className="ml-2 animate-pulse">🌾</span>
+            </p>
           </div>
         </div>
       </footer>
+
+      {/* Back to top button */}
+      <button
+        onClick={() => scrollToSection("home")}
+        className="fixed bottom-8 right-8 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white p-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110 z-50 opacity-80 hover:opacity-100"
+        aria-label="Back to top"
+      >
+        <ChevronRight className="w-6 h-6 transform -rotate-90" />
+      </button>
+
+      {/* Add blob animation styles */}
+      <style jsx>{`
+        @keyframes blob {
+          0% {
+            transform: translate(0px, 0px) scale(1);
+          }
+          33% {
+            transform: translate(30px, -50px) scale(1.1);
+          }
+          66% {
+            transform: translate(-20px, 20px) scale(0.9);
+          }
+          100% {
+            transform: translate(0px, 0px) scale(1);
+          }
+        }
+
+        .animate-blob {
+          animation: blob 7s infinite;
+        }
+
+        .animation-delay-2000 {
+          animation-delay: 2s;
+        }
+
+        .animation-delay-4000 {
+          animation-delay: 4s;
+        }
+      `}</style>
     </div>
   );
 };
