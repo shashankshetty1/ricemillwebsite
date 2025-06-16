@@ -321,8 +321,8 @@ Sent from Harekrishna Ricemill website contact form.
             className="text-xl md:text-2xl mb-8 text-rice-100 font-light leading-relaxed max-w-3xl mx-auto animate-in"
             style={{ animationDelay: "0.4s" }}
           >
-            ಸಾಂಪ್ರದಾಯಿಕ ಮೌಲ್ಯಗಳು ���ತ್ತು ಆಧುನಿಕ ತಂತ್ರಜ್ಞಾನದೊಂದಿಗೆ ಪ್ರೀಮಿಯಂ
-            ಗುಣ��ಟ್ಟದ ಅಕ್ಕಿ ಸಂಸ್ಕರಣೆ. ಮೂರು ದಶಕಗಳಿಗೂ ಹೆಚ್ಚು ಕಾಲ ಅತ್ಯುತ್ತಮ ಅಕ್ಕಿ
+            ಸಾಂಪ್ರದಾಯಿಕ ಮೌಲ್ಯಗಳು ಮತ್ತು ಆಧುನಿಕ ತಂತ್ರಜ್ಞಾನದೊಂದಿಗೆ ಪ್ರೀಮಿಯಂ
+            ಗುಣಮಟ್ಟದ ಅಕ್ಕಿ ಸಂಸ್ಕರಣೆ. ಮೂರು ದಶಕಗಳಿಗೂ ಹೆಚ್ಚು ಕಾಲ ಅತ್ಯುತ್ತಮ ಅಕ್ಕಿ
             ಉತ್ಪಾದನೆಗಳೊಂದಿಗೆ ಸಮುದಾಯಗಳಿಗೆ ಸೇವೆ ಸಲ್ಲಿಸುತ್ತಿದೆ.
           </p>
           <div
@@ -375,13 +375,13 @@ Sent from Harekrishna Ricemill website contact form.
               </h2>
               <div className="space-y-6 text-gray-700 text-lg leading-relaxed">
                 <p className="transform hover:scale-105 transition-transform duration-300 p-4 rounded-lg hover:bg-green-50">
-                  ಉಡುಪಿ ಜಿಲ್ಲೆಯ ಕೊರ್ಗಿ ಅರ್ಕೋಲಿಯಲ್ಲಿ ವಿಜಯ್ ಶೆಟ್ಟಿ ಸ್ಥಾಪಿಸಿದ
+                  ಉಡುಪಿ ಜಿಲ್ಲೆಯ ಕೊರ್ಗಿ ಅರ್ಕೋಲಿಯಲ್ಲ��� ವಿಜಯ್ ಶೆಟ್ಟಿ ಸ್ಥಾಪಿಸಿದ
                   ಹರೇಕೃಷ್ಣ ಅಕ್ಕಿ ಗಿರಣಿಯು ಹಲವಾರು ವರ್ಷಗಳಿಂದ ಸ್ಥಳೀಯ ಸಮುದಾಯಕ್ಕೆ
                   ಉತ್ತಮ ಗುಣಮಟ್ಟದ ಬೇಯಿಸಿದ ಅಕ್ಕಿಯೊಂದಿಗೆ ಸೇವೆ ಸಲ್ಲಿಸುತ್ತಿದೆ.
                 </p>
                 <p className="transform hover:scale-105 transition-transform duration-300 p-4 rounded-lg hover:bg-green-50">
                   ಸಮಂಜಸವಾದ ಬೆಲೆಯಲ್ಲಿ ಅಕ್ಕಿಯನ್ನು ನೀಡುವುದಕ್ಕೆ ಹೆಸರುವಾಸಿಯಾಗಿರುವ
-                  ನಾವು, ವಿಶ್ವಾಸಾರ್ಹತೆ ಮತ್ತು ಶ್ರೇಷ್ಠತೆಗಾಗಿ ಕುಂದಾ��ುರದಾದ್ಯಂತ ಬಲವಾದ
+                  ನಾವು, ವಿಶ್ವಾಸಾರ್ಹತೆ ಮತ್ತು ಶ್ರೇಷ್ಠತೆಗಾಗಿ ಕುಂದಾಪುರದಾದ್ಯಂತ ಬಲವಾದ
                   ಖ್ಯಾತಿಯನ್ನು ಗಳಿಸಿದ್ದೇವೆ.
                 </p>
                 <p className="transform hover:scale-105 transition-transform duration-300 p-4 rounded-lg hover:bg-green-50">
@@ -511,33 +511,6 @@ Sent from Harekrishna Ricemill website contact form.
 
           <div className="grid md:grid-cols-3 gap-8">
             {[
-              {
-                image:
-                  "https://images.pexels.com/photos/586615/pexels-photo-586615.jpeg",
-                title: "Raw Rice",
-                description:
-                  "Unprocessed, natural rice grains with full nutritional value. Perfect for traditional cooking methods and maximum health benefits.",
-                badge: "Premium Quality",
-                color: "from-green-500 to-green-600",
-              },
-              {
-                image:
-                  "https://images.pexels.com/photos/26341190/pexels-photo-26341190.jpeg",
-                title: "Boiled Rice",
-                description:
-                  "Steam-processed rice that retains essential nutrients while offering enhanced texture and longer shelf life. Ideal for daily consumption.",
-                badge: "Popular Choice",
-                color: "from-blue-500 to-blue-600",
-              },
-              {
-                image:
-                  "https://images.pexels.com/photos/586615/pexels-photo-586615.jpeg",
-                title: "Broken Rice",
-                description:
-                  "Cost-effective broken rice pieces perfect for making traditional dishes, animal feed, and various culinary preparations.",
-                badge: "Economic Option",
-                color: "from-orange-500 to-orange-600",
-              },
               {
                 image:
                   "https://cdn.builder.io/api/v1/assets/56f6efa9d1064da8b2a3be334b211383/rice-790b4a?format=webp&width=800",
