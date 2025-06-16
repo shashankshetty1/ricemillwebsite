@@ -153,7 +153,7 @@ const Index = () => {
           </h1>
           <p className="text-xl md:text-2xl mb-8 text-rice-100 font-light leading-relaxed max-w-3xl mx-auto">
             ಸಾಂಪ್ರದಾಯಿಕ ಮೌಲ್ಯಗಳು ಮತ್ತು ಆಧುನಿಕ ತಂತ್ರಜ್ಞಾನದೊಂದಿಗೆ ಪ್ರೀಮಿಯಂ
-            ಗುಣಮಟ್ಟದ ಅಕ್ಕಿ ಸಂಸ್ಕರಣೆ. ಮೂರು ದಶಕಗಳಿಗೂ ಹೆಚ್ಚು ���ಾಲ ಅತ್ಯುತ್ತಮ ಅಕ್ಕಿ
+            ಗುಣಮಟ್ಟದ ಅಕ್ಕಿ ಸಂಸ್ಕರಣೆ. ಮೂರು ದಶಕಗಳಿಗೂ ಹೆಚ್ಚು ಕಾಲ ಅತ್ಯುತ್ತಮ ಅಕ್ಕಿ
             ಉತ್ಪಾದನೆಗಳೊಂದಿಗೆ ಸಮುದಾಯಗಳಿಗೆ ಸೇವೆ ಸಲ್ಲಿಸುತ್ತಿದೆ.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -188,15 +188,15 @@ const Index = () => {
                   ಉತ್ತಮ ಗುಣಮಟ್ಟದ ಬೇಯಿಸಿದ ಅಕ್ಕಿಯೊಂದಿಗೆ ಸೇವೆ ಸಲ್ಲಿಸುತ್ತಿದೆ.
                 </p>
                 <p>
-                  ಸಮಂಜಸವಾದ ಬೆಲೆಯಲ್ಲಿ ಅಕ್ಕಿಯನ್ನು ನೀಡುವುದಕ್ಕೆ ಹೆಸರುವಾಸಿಯಾಗಿರುವ
+                  ಸಮಂಜಸವಾದ ಬೆಲೆಯಲ್��ಿ ಅಕ್ಕಿಯನ್ನು ನೀಡುವುದಕ್ಕೆ ಹೆಸರುವಾಸಿಯಾಗಿರುವ
                   ನಾವು, ವಿಶ್ವಾಸಾರ್ಹತೆ ಮತ್ತು ಶ್ರೇಷ್ಠತೆಗಾಗಿ ಕುಂದಾಪುರದಾದ್ಯಂತ ಬಲವಾದ
-                  ಖ್ಯಾತಿಯನ್ನು ಗಳಿಸಿ��್ದೇವೆ.
+                  ಖ್ಯಾತಿಯನ್ನು ಗಳಿಸಿದ್ದೇವೆ.
                 </p>
                 <p>
                   ಗುಣಮಟ್ಟಕ್ಕೆ ನಮ್ಮ ಬದ್ಧತೆಯು ನಾವು ಒದಗಿಸುವ ಪ್ರತಿಯೊಂದು ಅಕ್ಕಿ
                   ಧಾನ್ಯವು ಅತ್ಯುನ್ನತ ಮಾನದಂಡಗಳನ್ನು ಪೂರೈಸುತ್ತದೆ ಎಂದು
                   ಖಚಿತಪಡಿಸುತ್ತದೆ. ಕುಟುಂಬ ಸ್ವಾಮ್ಯದ ವ್ಯವಹಾರವಾಗಿ, ನಮ್ಮ ಗ್ರಾಹಕರಿಗೆ
-                  ಸಮರ್ಪಣೆ ಮತ್ತು ಸಾಂಪ್ರದಾಯಿಕ ಮೌಲ್ಯಗಳು ಮತ್ತು ಆಧುನಿಕ ಅಗತ್ಯಗಳ ಮೇಲೆ
+                  ಸಮರ್ಪಣೆ ಮತ್ತು ಸಾಂಪ್��ದಾಯಿಕ ಮೌಲ್ಯಗಳು ಮತ್ತು ಆಧುನಿಕ ಅಗತ್ಯಗಳ ಮೇಲೆ
                   ಕೇಂದ್ರೀಕರಿಸುವ ಮೂಲಕ ಸೇವೆ ಸಲ್ಲಿಸುವಲ್ಲಿ ನಾವು ಹೆಮ್ಮೆಪಡುತ್ತೇವೆ.
                 </p>
               </div>
@@ -356,50 +356,6 @@ const Index = () => {
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Weather Section */}
-      <section className="py-16 bg-green-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-green-800 mb-4">
-              Current Weather at Our Mill
-            </h2>
-            <p className="text-gray-600">
-              Real-time weather conditions affect our rice processing quality
-            </p>
-          </div>
-
-          <div className="max-w-md mx-auto bg-white rounded-2xl shadow-lg p-8">
-            {weather ? (
-              <div className="text-center">
-                <div className="flex items-center justify-center mb-4">
-                  {getWeatherIcon(weather.weather[0].main)}
-                  <Thermometer className="w-6 h-6 text-red-500 ml-2" />
-                </div>
-                <h3 className="text-2xl font-bold text-green-800 mb-2">
-                  {weather.name}
-                </h3>
-                <p className="text-4xl font-bold text-green-600 mb-2">
-                  {Math.round(weather.main.temp)}°C
-                </p>
-                <p className="text-gray-600 capitalize mb-4">
-                  {weather.weather[0].description}
-                </p>
-                <div className="bg-green-50 rounded-lg p-4">
-                  <p className="text-sm text-gray-600">
-                    Humidity: {weather.main.humidity}%
-                  </p>
-                </div>
-              </div>
-            ) : (
-              <div className="text-center">
-                <Cloud className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                <p className="text-gray-600">Loading weather data...</p>
-              </div>
-            )}
           </div>
         </div>
       </section>
