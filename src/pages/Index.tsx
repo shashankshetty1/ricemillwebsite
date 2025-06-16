@@ -1,41 +1,532 @@
+import { useState, useEffect } from "react";
+import {
+  MapPin,
+  Phone,
+  Mail,
+  Cloud,
+  Sun,
+  CloudRain,
+  Snow,
+  Thermometer,
+} from "lucide-react";
+
+interface WeatherData {
+  main: {
+    temp: number;
+    humidity: number;
+  };
+  weather: Array<{
+    main: string;
+    description: string;
+  }>;
+  name: string;
+}
+
 const Index = () => {
+  const [weather, setWeather] = useState<WeatherData | null>(null);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+
+  // Fetch weather data for a rice mill location (using Kolkata, India as example)
+  useEffect(() => {
+    const fetchWeather = async () => {
+      try {
+        // Using a free API endpoint - replace with your OpenWeatherMap API key
+        const response = await fetch(
+          `https://api.openweathermap.org/data/2.5/weather?q=Kolkata,IN&appid=demo&units=metric`,
+        );
+        if (response.ok) {
+          const data = await response.json();
+          setWeather(data);
+        }
+      } catch (error) {
+        console.error("Weather fetch failed:", error);
+      }
+    };
+
+    fetchWeather();
+  }, []);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    alert("Thank you for your message! We will get back to you soon.");
+    setFormData({ name: "", email: "", message: "" });
+  };
+
+  const getWeatherIcon = (weatherMain: string) => {
+    switch (weatherMain) {
+      case "Clear":
+        return <Sun className="w-6 h-6 text-yellow-500" />;
+      case "Clouds":
+        return <Cloud className="w-6 h-6 text-gray-500" />;
+      case "Rain":
+        return <CloudRain className="w-6 h-6 text-blue-500" />;
+      case "Snow":
+        return <Snow className="w-6 h-6 text-blue-200" />;
+      default:
+        return <Cloud className="w-6 h-6 text-gray-500" />;
+    }
+  };
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-100 to-slate-200">
-      <div className="text-center">
-        {/* TODO: replace everything here with the actual app! */}
-        <h1 className="text-2xl font-semibold text-slate-800 flex items-center justify-center gap-3">
-          <svg
-            className="animate-spin h-8 w-8 text-slate-400"
-            viewBox="0 0 50 50"
-          >
-            <circle
-              className="opacity-30"
-              cx="25"
-              cy="25"
-              r="20"
-              stroke="currentColor"
-              strokeWidth="5"
-              fill="none"
+    <div className="min-h-screen bg-rice-50">
+      {/* Navigation */}
+      <nav className="bg-white/95 backdrop-blur-sm shadow-sm fixed w-full top-0 z-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            <div className="flex items-center">
+              <h1 className="text-xl font-bold text-green-700">
+                Harekrishna Ricemill
+              </h1>
+            </div>
+            <div className="hidden md:block">
+              <div className="ml-10 flex items-baseline space-x-4">
+                <a
+                  href="#home"
+                  className="text-green-700 hover:text-green-800 px-3 py-2 text-sm font-medium transition-colors"
+                >
+                  Home
+                </a>
+                <a
+                  href="#about"
+                  className="text-green-700 hover:text-green-800 px-3 py-2 text-sm font-medium transition-colors"
+                >
+                  About
+                </a>
+                <a
+                  href="#products"
+                  className="text-green-700 hover:text-green-800 px-3 py-2 text-sm font-medium transition-colors"
+                >
+                  Products
+                </a>
+                <a
+                  href="#contact"
+                  className="text-green-700 hover:text-green-800 px-3 py-2 text-sm font-medium transition-colors"
+                >
+                  Contact
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      {/* Hero Section */}
+      <section
+        id="home"
+        className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      >
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://images.pexels.com/photos/32572865/pexels-photo-32572865.jpeg')`,
+          }}
+        />
+        <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
+            Harekrishna Ricemill
+          </h1>
+          <p className="text-xl md:text-2xl mb-8 text-rice-100 font-light leading-relaxed max-w-3xl mx-auto">
+            Premium quality rice processing with traditional values and modern
+            technology. Serving communities with the finest rice products for
+            over three decades.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <a
+              href="#products"
+              className="bg-green-600 hover:bg-green-700 text-white px-8 py-4 rounded-lg text-lg font-medium transition-colors shadow-lg"
+            >
+              Our Products
+            </a>
+            <a
+              href="#contact"
+              className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-green-700 px-8 py-4 rounded-lg text-lg font-medium transition-colors"
+            >
+              Contact Us
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* About Section */}
+      <section id="about" className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <h2 className="text-3xl md:text-4xl font-bold text-green-800 mb-6">
+                Our Story & Mission
+              </h2>
+              <div className="space-y-6 text-gray-700 text-lg leading-relaxed">
+                <p>
+                  Founded in 1990, Harekrishna Ricemill has been a cornerstone
+                  of quality rice processing in the region. What started as a
+                  small family business has grown into a trusted name that
+                  serves thousands of families with premium rice products.
+                </p>
+                <p>
+                  Our mission is to bridge the gap between traditional rice
+                  processing methods and modern quality standards. We believe in
+                  preserving the nutritional value and natural taste of rice
+                  while ensuring consistency and hygiene in every grain we
+                  process.
+                </p>
+                <p>
+                  With state-of-the-art machinery and a dedicated team of
+                  experts, we process over 1000 tons of rice monthly,
+                  maintaining the highest standards of quality and customer
+                  satisfaction.
+                </p>
+              </div>
+            </div>
+            <div
+              className="rounded-2xl shadow-2xl bg-cover bg-center h-96 lg:h-full min-h-[400px]"
+              style={{
+                backgroundImage: `url('https://images.pexels.com/photos/5262428/pexels-photo-5262428.jpeg')`,
+              }}
             />
-            <circle
-              className="text-slate-600"
-              cx="25"
-              cy="25"
-              r="20"
-              stroke="currentColor"
-              strokeWidth="5"
-              fill="none"
-              strokeDasharray="100"
-              strokeDashoffset="75"
-            />
-          </svg>
-          Generating your app...
-        </h1>
-        <p className="mt-4 text-slate-600 max-w-md">
-          Watch the chat on the left for updates that might need your attention
-          to finish generating
-        </p>
-      </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Products Section */}
+      <section id="products" className="py-20 bg-rice-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-green-800 mb-4">
+              Our Premium Products
+            </h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              Carefully processed and quality-tested rice varieties to meet all
+              your culinary needs
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {/* Raw Rice */}
+            <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+              <div
+                className="h-64 bg-cover bg-center"
+                style={{
+                  backgroundImage: `url('https://images.pexels.com/photos/586615/pexels-photo-586615.jpeg')`,
+                }}
+              />
+              <div className="p-8">
+                <h3 className="text-2xl font-bold text-green-800 mb-4">
+                  Raw Rice
+                </h3>
+                <p className="text-gray-600 mb-6 leading-relaxed">
+                  Unprocessed, natural rice grains with full nutritional value.
+                  Perfect for traditional cooking methods and maximum health
+                  benefits.
+                </p>
+                <div className="flex justify-between items-center">
+                  <span className="text-green-600 font-semibold">
+                    Premium Quality
+                  </span>
+                  <button className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg transition-colors">
+                    Learn More
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* Boiled Rice */}
+            <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+              <div
+                className="h-64 bg-cover bg-center"
+                style={{
+                  backgroundImage: `url('https://images.pexels.com/photos/26341190/pexels-photo-26341190.jpeg')`,
+                }}
+              />
+              <div className="p-8">
+                <h3 className="text-2xl font-bold text-green-800 mb-4">
+                  Boiled Rice
+                </h3>
+                <p className="text-gray-600 mb-6 leading-relaxed">
+                  Steam-processed rice that retains essential nutrients while
+                  offering enhanced texture and longer shelf life. Ideal for
+                  daily consumption.
+                </p>
+                <div className="flex justify-between items-center">
+                  <span className="text-green-600 font-semibold">
+                    Popular Choice
+                  </span>
+                  <button className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg transition-colors">
+                    Learn More
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* Broken Rice */}
+            <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+              <div
+                className="h-64 bg-cover bg-center"
+                style={{
+                  backgroundImage: `url('https://images.pexels.com/photos/586615/pexels-photo-586615.jpeg')`,
+                }}
+              />
+              <div className="p-8">
+                <h3 className="text-2xl font-bold text-green-800 mb-4">
+                  Broken Rice
+                </h3>
+                <p className="text-gray-600 mb-6 leading-relaxed">
+                  Cost-effective broken rice pieces perfect for making
+                  traditional dishes, animal feed, and various culinary
+                  preparations.
+                </p>
+                <div className="flex justify-between items-center">
+                  <span className="text-green-600 font-semibold">
+                    Economic Option
+                  </span>
+                  <button className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg transition-colors">
+                    Learn More
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Weather Section */}
+      <section className="py-16 bg-green-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-green-800 mb-4">
+              Current Weather at Our Mill
+            </h2>
+            <p className="text-gray-600">
+              Real-time weather conditions affect our rice processing quality
+            </p>
+          </div>
+
+          <div className="max-w-md mx-auto bg-white rounded-2xl shadow-lg p-8">
+            {weather ? (
+              <div className="text-center">
+                <div className="flex items-center justify-center mb-4">
+                  {getWeatherIcon(weather.weather[0].main)}
+                  <Thermometer className="w-6 h-6 text-red-500 ml-2" />
+                </div>
+                <h3 className="text-2xl font-bold text-green-800 mb-2">
+                  {weather.name}
+                </h3>
+                <p className="text-4xl font-bold text-green-600 mb-2">
+                  {Math.round(weather.main.temp)}°C
+                </p>
+                <p className="text-gray-600 capitalize mb-4">
+                  {weather.weather[0].description}
+                </p>
+                <div className="bg-green-50 rounded-lg p-4">
+                  <p className="text-sm text-gray-600">
+                    Humidity: {weather.main.humidity}%
+                  </p>
+                </div>
+              </div>
+            ) : (
+              <div className="text-center">
+                <Cloud className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+                <p className="text-gray-600">Loading weather data...</p>
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section id="contact" className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-green-800 mb-4">
+              Get in Touch
+            </h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              We'd love to hear from you. Send us a message and we'll respond as
+              soon as possible.
+            </p>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-12">
+            {/* Contact Form */}
+            <div className="bg-rice-50 rounded-2xl p-8 shadow-lg">
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div>
+                  <label
+                    htmlFor="name"
+                    className="block text-sm font-medium text-green-800 mb-2"
+                  >
+                    Full Name
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    value={formData.name}
+                    onChange={(e) =>
+                      setFormData({ ...formData, name: e.target.value })
+                    }
+                    className="w-full px-4 py-3 border border-green-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all"
+                    required
+                  />
+                </div>
+                <div>
+                  <label
+                    htmlFor="email"
+                    className="block text-sm font-medium text-green-800 mb-2"
+                  >
+                    Email Address
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    value={formData.email}
+                    onChange={(e) =>
+                      setFormData({ ...formData, email: e.target.value })
+                    }
+                    className="w-full px-4 py-3 border border-green-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all"
+                    required
+                  />
+                </div>
+                <div>
+                  <label
+                    htmlFor="message"
+                    className="block text-sm font-medium text-green-800 mb-2"
+                  >
+                    Message
+                  </label>
+                  <textarea
+                    id="message"
+                    rows={5}
+                    value={formData.message}
+                    onChange={(e) =>
+                      setFormData({ ...formData, message: e.target.value })
+                    }
+                    className="w-full px-4 py-3 border border-green-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all resize-none"
+                    required
+                  />
+                </div>
+                <button
+                  type="submit"
+                  className="w-full bg-green-600 hover:bg-green-700 text-white py-4 rounded-lg text-lg font-medium transition-colors shadow-lg"
+                >
+                  Send Message
+                </button>
+              </form>
+            </div>
+
+            {/* Contact Information */}
+            <div className="space-y-8">
+              <div className="bg-green-50 rounded-2xl p-8">
+                <h3 className="text-2xl font-bold text-green-800 mb-6">
+                  Contact Information
+                </h3>
+                <div className="space-y-4">
+                  <div className="flex items-center">
+                    <Phone className="w-5 h-5 text-green-600 mr-3" />
+                    <span className="text-gray-700">+91 98765 43210</span>
+                  </div>
+                  <div className="flex items-center">
+                    <Mail className="w-5 h-5 text-green-600 mr-3" />
+                    <span className="text-gray-700">
+                      info@harekrishnaricemill.com
+                    </span>
+                  </div>
+                  <div className="flex items-start">
+                    <MapPin className="w-5 h-5 text-green-600 mr-3 mt-1" />
+                    <span className="text-gray-700">
+                      123 Rice Mill Road,
+                      <br />
+                      Grain Market District,
+                      <br />
+                      Kolkata, West Bengal 700001
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Google Map */}
+              <div className="bg-gray-100 rounded-2xl overflow-hidden shadow-lg">
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d235013.59730109075!2d88.04952462949842!3d22.672670170318263!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f882db4908f667%3A0x43e330e68f6c2cbc!2sKolkata%2C%20West%20Bengal!5e0!3m2!1sen!2sin!4v1703123456789!5m2!1sen!2sin"
+                  width="100%"
+                  height="300"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="Harekrishna Ricemill Location"
+                ></iframe>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-green-800 text-white py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid md:grid-cols-3 gap-8">
+            <div>
+              <h3 className="text-2xl font-bold mb-4">Harekrishna Ricemill</h3>
+              <p className="text-green-100 leading-relaxed">
+                Premium quality rice processing with traditional values and
+                modern technology. Your trusted partner for the finest rice
+                products.
+              </p>
+            </div>
+            <div>
+              <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
+              <ul className="space-y-2 text-green-100">
+                <li>
+                  <a
+                    href="#home"
+                    className="hover:text-white transition-colors"
+                  >
+                    Home
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#about"
+                    className="hover:text-white transition-colors"
+                  >
+                    About
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#products"
+                    className="hover:text-white transition-colors"
+                  >
+                    Products
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#contact"
+                    className="hover:text-white transition-colors"
+                  >
+                    Contact
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="text-lg font-semibold mb-4">Contact Info</h4>
+              <div className="space-y-2 text-green-100">
+                <p>+91 98765 43210</p>
+                <p>info@harekrishnaricemill.com</p>
+                <p>123 Rice Mill Road, Kolkata</p>
+              </div>
+            </div>
+          </div>
+          <div className="border-t border-green-700 mt-8 pt-8 text-center text-green-100">
+            <p>&copy; 2024 Harekrishna Ricemill. All rights reserved.</p>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 };
