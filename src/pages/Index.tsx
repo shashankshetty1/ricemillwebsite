@@ -1,31 +1,7 @@
 import { useState, useEffect } from "react";
-import {
-  MapPin,
-  Phone,
-  Mail,
-  Cloud,
-  Sun,
-  CloudRain,
-  Snowflake,
-  Thermometer,
-  ChevronLeft,
-  ChevronRight,
-} from "lucide-react";
-
-interface WeatherData {
-  main: {
-    temp: number;
-    humidity: number;
-  };
-  weather: Array<{
-    main: string;
-    description: string;
-  }>;
-  name: string;
-}
+import { MapPin, Phone, Mail, ChevronLeft, ChevronRight } from "lucide-react";
 
 const Index = () => {
-  const [weather, setWeather] = useState<WeatherData | null>(null);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -87,26 +63,6 @@ const Index = () => {
     },
   ];
 
-  // Fetch weather data for a rice mill location (using Kolkata, India as example)
-  useEffect(() => {
-    const fetchWeather = async () => {
-      try {
-        // Using a free API endpoint - replace with your OpenWeatherMap API key
-        const response = await fetch(
-          `https://api.openweathermap.org/data/2.5/weather?q=Kolkata,IN&appid=demo&units=metric`,
-        );
-        if (response.ok) {
-          const data = await response.json();
-          setWeather(data);
-        }
-      } catch (error) {
-        console.error("Weather fetch failed:", error);
-      }
-    };
-
-    fetchWeather();
-  }, []);
-
   // Auto-advance carousel
   useEffect(() => {
     const interval = setInterval(() => {
@@ -135,21 +91,6 @@ const Index = () => {
     e.preventDefault();
     alert("Thank you for your message! We will get back to you soon.");
     setFormData({ name: "", email: "", message: "" });
-  };
-
-  const getWeatherIcon = (weatherMain: string) => {
-    switch (weatherMain) {
-      case "Clear":
-        return <Sun className="w-6 h-6 text-yellow-500" />;
-      case "Clouds":
-        return <Cloud className="w-6 h-6 text-gray-500" />;
-      case "Rain":
-        return <CloudRain className="w-6 h-6 text-blue-500" />;
-      case "Snow":
-        return <Snowflake className="w-6 h-6 text-blue-200" />;
-      default:
-        return <Cloud className="w-6 h-6 text-gray-500" />;
-    }
   };
 
   return (
@@ -212,7 +153,7 @@ const Index = () => {
           </h1>
           <p className="text-xl md:text-2xl mb-8 text-rice-100 font-light leading-relaxed max-w-3xl mx-auto">
             ಸಾಂಪ್ರದಾಯಿಕ ಮೌಲ್ಯಗಳು ಮತ್ತು ಆಧುನಿಕ ತಂತ್ರಜ್ಞಾನದೊಂದಿಗೆ ಪ್ರೀಮಿಯಂ
-            ಗುಣಮಟ್ಟದ ಅಕ್ಕಿ ಸಂಸ್ಕರಣೆ. ಮೂರು ದಶಕಗಳಿಗೂ ಹೆಚ್ಚು ಕಾಲ ಅತ್ಯುತ್ತಮ ಅಕ್ಕಿ
+            ಗುಣಮಟ್ಟದ ಅಕ್ಕಿ ಸಂಸ್ಕರಣೆ. ಮೂರು ದಶಕಗಳಿಗೂ ಹೆಚ್ಚು ���ಾಲ ಅತ್ಯುತ್ತಮ ಅಕ್ಕಿ
             ಉತ್ಪಾದನೆಗಳೊಂದಿಗೆ ಸಮುದಾಯಗಳಿಗೆ ಸೇವೆ ಸಲ್ಲಿಸುತ್ತಿದೆ.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -242,23 +183,21 @@ const Index = () => {
               </h2>
               <div className="space-y-6 text-gray-700 text-lg leading-relaxed">
                 <p>
-                  Founded in 1990, Harekrishna Ricemill has been a cornerstone
-                  of quality rice processing in the region. What started as a
-                  small family business has grown into a trusted name that
-                  serves thousands of families with premium rice products.
+                  ಉಡುಪಿ ಜಿಲ್ಲೆಯ ಕೊರ್ಗಿ ಅರ್ಕೋಲಿಯಲ್ಲಿ ವಿಜಯ್ ಶೆಟ್ಟಿ ಸ್ಥಾಪಿಸಿದ
+                  ಹರೇಕೃಷ್ಣ ಅಕ್ಕಿ ಗಿರಣಿಯು ಹಲವಾರು ವರ್ಷಗಳಿಂದ ಸ್ಥಳೀಯ ಸಮುದಾಯಕ್ಕೆ
+                  ಉತ್ತಮ ಗುಣಮಟ್ಟದ ಬೇಯಿಸಿದ ಅಕ್ಕಿಯೊಂದಿಗೆ ಸೇವೆ ಸಲ್ಲಿಸುತ್ತಿದೆ.
                 </p>
                 <p>
-                  Our mission is to bridge the gap between traditional rice
-                  processing methods and modern quality standards. We believe in
-                  preserving the nutritional value and natural taste of rice
-                  while ensuring consistency and hygiene in every grain we
-                  process.
+                  ಸಮಂಜಸವಾದ ಬೆಲೆಯಲ್ಲಿ ಅಕ್ಕಿಯನ್ನು ನೀಡುವುದಕ್ಕೆ ಹೆಸರುವಾಸಿಯಾಗಿರುವ
+                  ನಾವು, ವಿಶ್ವಾಸಾರ್ಹತೆ ಮತ್ತು ಶ್ರೇಷ್ಠತೆಗಾಗಿ ಕುಂದಾಪುರದಾದ್ಯಂತ ಬಲವಾದ
+                  ಖ್ಯಾತಿಯನ್ನು ಗಳಿಸಿ��್ದೇವೆ.
                 </p>
                 <p>
-                  With state-of-the-art machinery and a dedicated team of
-                  experts, we process over 1000 tons of rice monthly,
-                  maintaining the highest standards of quality and customer
-                  satisfaction.
+                  ಗುಣಮಟ್ಟಕ್ಕೆ ನಮ್ಮ ಬದ್ಧತೆಯು ನಾವು ಒದಗಿಸುವ ಪ್ರತಿಯೊಂದು ಅಕ್ಕಿ
+                  ಧಾನ್ಯವು ಅತ್ಯುನ್ನತ ಮಾನದಂಡಗಳನ್ನು ಪೂರೈಸುತ್ತದೆ ಎಂದು
+                  ಖಚಿತಪಡಿಸುತ್ತದೆ. ಕುಟುಂಬ ಸ್ವಾಮ್ಯದ ವ್ಯವಹಾರವಾಗಿ, ನಮ್ಮ ಗ್ರಾಹಕರಿಗೆ
+                  ಸಮರ್ಪಣೆ ಮತ್ತು ಸಾಂಪ್ರದಾಯಿಕ ಮೌಲ್ಯಗಳು ಮತ್ತು ಆಧುನಿಕ ಅಗತ್ಯಗಳ ಮೇಲೆ
+                  ಕೇಂದ್ರೀಕರಿಸುವ ಮೂಲಕ ಸೇವೆ ಸಲ್ಲಿಸುವಲ್ಲಿ ನಾವು ಹೆಮ್ಮೆಪಡುತ್ತೇವೆ.
                 </p>
               </div>
             </div>
