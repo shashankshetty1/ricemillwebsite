@@ -8,6 +8,8 @@ import {
   CloudRain,
   Snowflake,
   Thermometer,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 
 interface WeatherData {
@@ -30,6 +32,61 @@ const Index = () => {
     message: "",
   });
 
+  // Carousel state for About section
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  // Rice mill story images
+  const storyImages = [
+    {
+      url: "https://cdn.builder.io/api/v1/assets/56f6efa9d1064da8b2a3be334b211383/own-794882?format=webp&width=800",
+      caption: "Our state-of-the-art rice processing machinery",
+    },
+    {
+      url: "https://cdn.builder.io/api/v1/assets/56f6efa9d1064da8b2a3be334b211383/own1-aa3c4e?format=webp&width=800",
+      caption: "Harekrishna Ricemill facility exterior",
+    },
+    {
+      url: "https://cdn.builder.io/api/v1/assets/56f6efa9d1064da8b2a3be334b211383/own2-70c647?format=webp&width=800",
+      caption: "Rice storage and packaging area",
+    },
+    {
+      url: "https://cdn.builder.io/api/v1/assets/56f6efa9d1064da8b2a3be334b211383/own3-71a278?format=webp&width=800",
+      caption: "Modern rice milling equipment in operation",
+    },
+    {
+      url: "https://cdn.builder.io/api/v1/assets/56f6efa9d1064da8b2a3be334b211383/own4-1fa135?format=webp&width=800",
+      caption: "Quality control and processing floor",
+    },
+    {
+      url: "https://cdn.builder.io/api/v1/assets/56f6efa9d1064da8b2a3be334b211383/own5-1a29f9?format=webp&width=800",
+      caption: "Advanced rice sorting and cleaning machinery",
+    },
+    {
+      url: "https://cdn.builder.io/api/v1/assets/56f6efa9d1064da8b2a3be334b211383/own6-6e61f1?format=webp&width=800",
+      caption: "Rice processing and packaging operations",
+    },
+    {
+      url: "https://cdn.builder.io/api/v1/assets/56f6efa9d1064da8b2a3be334b211383/own7-3add38?format=webp&width=800",
+      caption: "Premium quality rice ready for distribution",
+    },
+    {
+      url: "https://cdn.builder.io/api/v1/assets/56f6efa9d1064da8b2a3be334b211383/own8-b72762?format=webp&width=800",
+      caption: "Hand-selected rice grains ensuring quality",
+    },
+    {
+      url: "https://cdn.builder.io/api/v1/assets/56f6efa9d1064da8b2a3be334b211383/rice-54b1ec?format=webp&width=800",
+      caption: "Freshly processed rice varieties",
+    },
+    {
+      url: "https://cdn.builder.io/api/v1/assets/56f6efa9d1064da8b2a3be334b211383/rice2-fa069a?format=webp&width=800",
+      caption: "Premium rice grains in expert hands",
+    },
+    {
+      url: "https://cdn.builder.io/api/v1/assets/56f6efa9d1064da8b2a3be334b211383/rice3-8a1e93?format=webp&width=800",
+      caption: "Our signature rice blend collection",
+    },
+  ];
+
   // Fetch weather data for a rice mill location (using Kolkata, India as example)
   useEffect(() => {
     const fetchWeather = async () => {
@@ -49,6 +106,30 @@ const Index = () => {
 
     fetchWeather();
   }, []);
+
+  // Auto-advance carousel
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % storyImages.length);
+    }, 4000); // Change slide every 4 seconds
+
+    return () => clearInterval(interval);
+  }, [storyImages.length]);
+
+  // Carousel navigation functions
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % storyImages.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide(
+      (prev) => (prev - 1 + storyImages.length) % storyImages.length,
+    );
+  };
+
+  const goToSlide = (index: number) => {
+    setCurrentSlide(index);
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -181,12 +262,60 @@ const Index = () => {
                 </p>
               </div>
             </div>
-            <div
-              className="rounded-2xl shadow-2xl bg-cover bg-center h-96 lg:h-full min-h-[400px]"
-              style={{
-                backgroundImage: `url('https://images.pexels.com/photos/5262428/pexels-photo-5262428.jpeg')`,
-              }}
-            />
+            <div className="relative rounded-2xl shadow-2xl overflow-hidden h-96 lg:h-full min-h-[400px] bg-gray-100">
+              {/* Main carousel image */}
+              <div
+                className="w-full h-full bg-cover bg-center transition-all duration-500 ease-in-out"
+                style={{
+                  backgroundImage: `url('${storyImages[currentSlide].url}')`,
+                }}
+              />
+
+              {/* Navigation arrows */}
+              <button
+                onClick={prevSlide}
+                className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-all duration-200 z-10"
+                aria-label="Previous image"
+              >
+                <ChevronLeft className="w-6 h-6" />
+              </button>
+
+              <button
+                onClick={nextSlide}
+                className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-all duration-200 z-10"
+                aria-label="Next image"
+              >
+                <ChevronRight className="w-6 h-6" />
+              </button>
+
+              {/* Caption overlay */}
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6">
+                <p className="text-white text-sm md:text-base font-medium">
+                  {storyImages[currentSlide].caption}
+                </p>
+              </div>
+
+              {/* Dot indicators */}
+              <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-10">
+                {storyImages.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => goToSlide(index)}
+                    className={`w-2 h-2 rounded-full transition-all duration-200 ${
+                      index === currentSlide
+                        ? "bg-white scale-125"
+                        : "bg-white/50 hover:bg-white/75"
+                    }`}
+                    aria-label={`Go to slide ${index + 1}`}
+                  />
+                ))}
+              </div>
+
+              {/* Slide counter */}
+              <div className="absolute top-4 right-4 bg-black/50 text-white px-3 py-1 rounded-full text-sm">
+                {currentSlide + 1} / {storyImages.length}
+              </div>
+            </div>
           </div>
         </div>
       </section>
