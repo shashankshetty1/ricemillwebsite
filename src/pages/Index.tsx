@@ -323,7 +323,7 @@ Sent from Harekrishna Ricemill website contact form.
           >
             ಸಾಂಪ್ರದಾಯಿಕ ಮೌಲ್ಯಗಳು ಮತ್ತು ಆಧುನಿಕ ತಂತ್ರಜ್ಞಾನದೊಂದಿಗೆ ಪ್ರೀಮಿಯಂ
             ಗುಣಮಟ್ಟದ ಅಕ್ಕಿ ಸಂಸ್ಕರಣೆ. ಮೂರು ದಶಕಗಳಿಗೂ ಹೆಚ್ಚು ಕಾಲ ಅತ್ಯುತ್ತಮ ಅಕ್ಕಿ
-            ಉತ್ಪಾದನೆಗಳೊಂದಿಗೆ ಸಮುದಾಯಗಳಿಗೆ ಸೇವೆ ಸಲ್ಲಿಸುತ್ತಿದೆ.
+            ಉತ್ಪಾದನೆಗಳೊಂದಿಗೆ ಸಮುದಾಯಗಳಿಗೆ ಸ��ವೆ ಸಲ್ಲಿಸುತ್ತಿದೆ.
           </p>
           <div
             className="flex flex-col sm:flex-row gap-4 justify-center animate-in"
@@ -375,7 +375,7 @@ Sent from Harekrishna Ricemill website contact form.
               </h2>
               <div className="space-y-6 text-gray-700 text-lg leading-relaxed">
                 <p className="transform hover:scale-105 transition-transform duration-300 p-4 rounded-lg hover:bg-green-50">
-                  ಉಡುಪಿ ಜಿಲ್ಲೆಯ ಕೊರ್ಗಿ ಅರ್ಕೋಲಿಯಲ್ಲ��� ವಿಜಯ್ ಶೆಟ್ಟಿ ಸ್ಥಾಪಿಸಿದ
+                  ಉಡುಪಿ ಜಿಲ್ಲೆಯ ಕೊರ್ಗಿ ಅರ್ಕೋಲಿಯಲ್ಲಿ ವಿಜಯ್ ಶೆಟ್ಟಿ ಸ್ಥಾಪಿಸಿದ
                   ಹರೇಕೃಷ್ಣ ಅಕ್ಕಿ ಗಿರಣಿಯು ಹಲವಾರು ವರ್ಷಗಳಿಂದ ಸ್ಥಳೀಯ ಸಮುದಾಯಕ್ಕೆ
                   ಉತ್ತಮ ಗುಣಮಟ್ಟದ ಬೇಯಿಸಿದ ಅಕ್ಕಿಯೊಂದಿಗೆ ಸೇವೆ ಸಲ್ಲಿಸುತ್ತಿದೆ.
                 </p>
@@ -753,96 +753,234 @@ Sent from Harekrishna Ricemill website contact form.
         </div>
       </section>
 
-      {/* Enhanced Footer */}
-      <footer className="bg-gradient-to-br from-green-800 to-green-900 text-white py-12 relative overflow-hidden">
-        {/* Background decoration */}
-        <div className="absolute inset-0 opacity-10">
+      {/* Professional Corporate Footer */}
+      <footer className="bg-gradient-to-br from-slate-900 via-green-900 to-slate-900 text-white relative overflow-hidden">
+        {/* Sophisticated background pattern */}
+        <div className="absolute inset-0 opacity-5">
           <div
             className="absolute inset-0"
             style={{
-              backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-opacity='0.1'%3E%3Cpath d='M50 0v100M0 50h100' stroke='%23ffffff' stroke-width='0.5'/%3E%3C/g%3E%3C/svg%3E")`,
+              backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
             }}
           ></div>
         </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="animate-on-scroll">
-              <div className="flex items-center mb-4">
-                <div className="w-12 h-12 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center mr-3">
-                  <span className="text-white font-bold text-xl">H</span>
+        {/* Top accent border */}
+        <div className="w-full h-1 bg-gradient-to-r from-green-400 via-green-500 to-green-600"></div>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative py-16">
+          {/* Main footer content */}
+          <div className="grid lg:grid-cols-4 md:grid-cols-2 gap-12">
+            {/* Company Brand Section */}
+            <div className="lg:col-span-2 animate-on-scroll">
+              <div className="flex items-center mb-6 group">
+                <div className="w-16 h-16 bg-gradient-to-br from-green-400 via-green-500 to-green-600 rounded-2xl flex items-center justify-center mr-4 shadow-lg group-hover:scale-105 transition-transform duration-300">
+                  <span className="text-white font-bold text-2xl">H</span>
                 </div>
-                <h3 className="text-2xl font-bold">Harekrishna Ricemill</h3>
+                <div>
+                  <h3 className="text-3xl font-bold bg-gradient-to-r from-white to-green-200 bg-clip-text text-transparent">
+                    Harekrishna Ricemill
+                  </h3>
+                  <p className="text-green-300 text-sm font-medium mt-1">
+                    Est. 1990 • Premium Rice Processing
+                  </p>
+                </div>
               </div>
-              <p className="text-green-100 leading-relaxed">
+
+              <p className="text-gray-300 leading-relaxed text-lg mb-6 max-w-md">
                 Premium quality rice processing with traditional values and
                 modern technology. Your trusted partner for the finest rice
-                products.
+                products across Karnataka.
               </p>
 
-              {/* Social media icons placeholder */}
-              <div className="flex space-x-4 mt-6">
-                {["facebook", "instagram", "twitter"].map((social) => (
+              {/* Professional certifications/badges */}
+              <div className="flex flex-wrap gap-3 mb-6">
+                <div className="bg-green-800/50 px-4 py-2 rounded-full border border-green-600/30">
+                  <span className="text-green-200 text-sm font-medium">
+                    ✓ Quality Certified
+                  </span>
+                </div>
+                <div className="bg-green-800/50 px-4 py-2 rounded-full border border-green-600/30">
+                  <span className="text-green-200 text-sm font-medium">
+                    ✓ Family Owned
+                  </span>
+                </div>
+                <div className="bg-green-800/50 px-4 py-2 rounded-full border border-green-600/30">
+                  <span className="text-green-200 text-sm font-medium">
+                    ✓ 30+ Years Experience
+                  </span>
+                </div>
+              </div>
+
+              {/* Professional social media */}
+              <div className="flex space-x-4">
+                {[
+                  {
+                    name: "Facebook",
+                    icon: "F",
+                    color: "from-blue-500 to-blue-600",
+                  },
+                  {
+                    name: "Instagram",
+                    icon: "I",
+                    color: "from-pink-500 to-purple-600",
+                  },
+                  {
+                    name: "LinkedIn",
+                    icon: "L",
+                    color: "from-blue-600 to-blue-700",
+                  },
+                  {
+                    name: "WhatsApp",
+                    icon: "W",
+                    color: "from-green-500 to-green-600",
+                  },
+                ].map((social) => (
                   <div
-                    key={social}
-                    className="w-10 h-10 bg-green-700 hover:bg-green-600 rounded-full flex items-center justify-center cursor-pointer transition-colors duration-300 transform hover:scale-110"
+                    key={social.name}
+                    className={`w-12 h-12 bg-gradient-to-br ${social.color} rounded-xl flex items-center justify-center cursor-pointer transition-all duration-300 transform hover:scale-110 hover:shadow-lg shadow-md`}
+                    title={social.name}
                   >
-                    <span className="text-sm font-bold">
-                      {social[0].toUpperCase()}
+                    <span className="text-white font-bold text-lg">
+                      {social.icon}
                     </span>
                   </div>
                 ))}
               </div>
             </div>
 
+            {/* Quick Links Section */}
             <div className="animate-on-scroll">
-              <h4 className="text-lg font-semibold mb-4 text-green-300">
+              <h4 className="text-xl font-bold mb-6 text-white relative">
                 Quick Links
+                <div className="w-12 h-0.5 bg-gradient-to-r from-green-400 to-green-600 mt-2"></div>
               </h4>
-              <ul className="space-y-3 text-green-100">
+              <ul className="space-y-4">
                 {[
                   { name: "Home", id: "home" },
-                  { name: "About", id: "about" },
-                  { name: "Products", id: "products" },
-                  { name: "Contact", id: "contact" },
+                  { name: "About Us", id: "about" },
+                  { name: "Our Products", id: "products" },
+                  { name: "Contact Us", id: "contact" },
                 ].map((link) => (
                   <li key={link.name}>
                     <button
                       onClick={() => scrollToSection(link.id)}
-                      className="hover:text-white transition-colors duration-300 hover:translate-x-2 transform inline-block"
+                      className="group flex items-center text-gray-300 hover:text-white transition-all duration-300 text-lg"
                     >
-                      {link.name}
+                      <span className="w-2 h-2 bg-green-500 rounded-full mr-3 group-hover:bg-green-400 transition-colors duration-300"></span>
+                      <span className="group-hover:translate-x-1 transform transition-transform duration-300">
+                        {link.name}
+                      </span>
                     </button>
                   </li>
                 ))}
               </ul>
             </div>
 
+            {/* Contact Information Section */}
             <div className="animate-on-scroll">
-              <h4 className="text-lg font-semibold mb-4 text-green-300">
-                Contact Info
+              <h4 className="text-xl font-bold mb-6 text-white relative">
+                Contact Information
+                <div className="w-12 h-0.5 bg-gradient-to-r from-green-400 to-green-600 mt-2"></div>
               </h4>
-              <div className="space-y-3 text-green-100">
-                <p className="flex items-center hover:text-white transition-colors duration-300">
-                  <span className="mr-2">📞</span> 8971148263, 8105991344
-                </p>
-                <p className="flex items-center hover:text-white transition-colors duration-300">
-                  <span className="mr-2">✉️</span>{" "}
-                  harekrishnaricemill12@gmail.com
-                </p>
-                <p className="flex items-start hover:text-white transition-colors duration-300">
-                  <span className="mr-2 mt-1">📍</span>
-                  <span>Korgi Arkoli, Kundapura Taluk, Udupi District</span>
-                </p>
+              <div className="space-y-5">
+                {/* Phone Numbers */}
+                <div className="group">
+                  <div className="flex items-start space-x-4 p-4 rounded-xl bg-slate-800/30 border border-slate-700/50 hover:border-green-500/50 transition-all duration-300">
+                    <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-green-600 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <span className="text-white font-bold text-lg">📞</span>
+                    </div>
+                    <div>
+                      <p className="text-white font-semibold text-lg">
+                        +91 8971148263
+                      </p>
+                      <p className="text-white font-semibold text-lg">
+                        +91 8105991344
+                      </p>
+                      <p className="text-green-300 text-sm mt-1">
+                        Call us anytime
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Email */}
+                <div className="group">
+                  <div className="flex items-center space-x-4 p-4 rounded-xl bg-slate-800/30 border border-slate-700/50 hover:border-green-500/50 transition-all duration-300">
+                    <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <span className="text-white font-bold text-lg">✉️</span>
+                    </div>
+                    <div>
+                      <p className="text-white font-semibold text-lg break-all">
+                        harekrishnaricemill12@gmail.com
+                      </p>
+                      <p className="text-green-300 text-sm mt-1">
+                        Business inquiries
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Address */}
+                <div className="group">
+                  <div className="flex items-start space-x-4 p-4 rounded-xl bg-slate-800/30 border border-slate-700/50 hover:border-green-500/50 transition-all duration-300">
+                    <div className="w-10 h-10 bg-gradient-to-br from-red-500 to-red-600 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <span className="text-white font-bold text-lg">📍</span>
+                    </div>
+                    <div>
+                      <p className="text-white font-semibold text-lg leading-relaxed">
+                        Korgi Arkoli
+                        <br />
+                        Kundapura Taluk
+                        <br />
+                        Udupi District, Karnataka
+                      </p>
+                      <p className="text-green-300 text-sm mt-1">
+                        Visit our facility
+                      </p>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
 
-          <div className="border-t border-green-700 mt-8 pt-8 text-center text-green-100">
-            <p className="flex items-center justify-center">
-              &copy; 2024 Harekrishna Ricemill. All rights reserved.
-              <span className="ml-2 animate-pulse">🌾</span>
-            </p>
+          {/* Professional bottom section */}
+          <div className="mt-16 pt-8 border-t border-slate-700/50">
+            <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+              {/* Copyright */}
+              <div className="flex items-center space-x-2">
+                <span className="text-2xl">🌾</span>
+                <p className="text-gray-400 text-lg">
+                  © 2024{" "}
+                  <span className="text-white font-semibold">
+                    Harekrishna Ricemill
+                  </span>
+                  . All rights reserved.
+                </p>
+              </div>
+
+              {/* Professional badges */}
+              <div className="flex items-center space-x-6 text-sm text-gray-400">
+                <span className="hover:text-green-400 transition-colors duration-300 cursor-pointer">
+                  Privacy Policy
+                </span>
+                <span className="hover:text-green-400 transition-colors duration-300 cursor-pointer">
+                  Terms of Service
+                </span>
+                <span className="hover:text-green-400 transition-colors duration-300 cursor-pointer">
+                  Quality Standards
+                </span>
+              </div>
+            </div>
+
+            {/* Professional tagline */}
+            <div className="text-center mt-8">
+              <p className="text-green-300 text-lg font-medium">
+                "Preserving tradition, ensuring quality, serving communities
+                since 1990"
+              </p>
+            </div>
           </div>
         </div>
       </footer>
