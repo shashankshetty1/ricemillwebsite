@@ -246,8 +246,12 @@ Sent from Harekrishna Ricemill website contact form.
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center group">
-              <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-green-700 rounded-full flex items-center justify-center mr-3 group-hover:scale-110 transition-transform duration-300">
-                <span className="text-white font-bold text-lg">H</span>
+              <div className="w-12 h-12 mr-3 group-hover:scale-110 transition-transform duration-300">
+                <img
+                  src="https://cdn.builder.io/api/v1/assets/56f6efa9d1064da8b2a3be334b211383/logo1-901842?format=webp&width=200"
+                  alt="Harekrishna Ricemill Logo"
+                  className="w-full h-full object-contain rounded-full"
+                />
               </div>
               <h1 className="text-xl font-bold gradient-text group-hover:scale-105 transition-transform duration-300">
                 Harekrishna Ricemill
@@ -375,7 +379,7 @@ Sent from Harekrishna Ricemill website contact form.
               </h2>
               <div className="space-y-6 text-gray-700 text-lg leading-relaxed">
                 <p className="transform hover:scale-105 transition-transform duration-300 p-4 rounded-lg hover:bg-green-50">
-                  ಉಡುಪಿ ಜಿಲ್ಲೆಯ ಕೊರ್ಗಿ ಅರ್ಕೋಲಿಯಲ್ಲಿ ���ಿಜಯ್ ಶೆಟ್ಟಿ ಸ್ಥಾಪಿಸಿದ
+                  ಉಡುಪಿ ಜಿಲ್ಲೆಯ ಕೊರ್ಗಿ ಅರ್ಕೋಲಿಯಲ್ಲಿ ವಿಜಯ್ ಶೆಟ್ಟಿ ಸ್ಥಾಪಿಸಿದ
                   ಹರೇಕೃಷ್ಣ ಅಕ್ಕಿ ಗಿರಣಿಯು ಹಲವಾರು ವರ್ಷಗಳಿಂದ ಸ್ಥಳೀಯ ಸಮುದಾಯಕ್ಕೆ
                   ಉತ್ತಮ ಗುಣಮಟ್ಟದ ಬೇಯಿಸಿದ ಅಕ್ಕಿಯೊಂದಿಗೆ ಸೇವೆ ಸಲ್ಲಿಸುತ್ತಿದೆ.
                 </p>
@@ -760,8 +764,12 @@ Sent from Harekrishna Ricemill website contact form.
             {/* Company Brand Section */}
             <div>
               <div className="flex items-center mb-3">
-                <div className="w-10 h-10 bg-green-600 rounded-lg flex items-center justify-center mr-3">
-                  <span className="text-white font-bold">H</span>
+                <div className="w-12 h-12 mr-3">
+                  <img
+                    src="https://cdn.builder.io/api/v1/assets/56f6efa9d1064da8b2a3be334b211383/logo1-901842?format=webp&width=200"
+                    alt="Harekrishna Ricemill Logo"
+                    className="w-full h-full object-contain rounded-lg"
+                  />
                 </div>
                 <div>
                   <h3 className="text-lg font-bold">Harekrishna Ricemill</h3>
