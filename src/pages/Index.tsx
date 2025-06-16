@@ -133,9 +133,29 @@ const Index = () => {
     // Add form validation animation
     const form = e.target as HTMLFormElement;
     form.classList.add("animate-pulse");
+
+    // Prepare email data
+    const emailData = {
+      to: "shettyshashank089@gmail.com",
+      subject: `New Contact Form Message from ${formData.name}`,
+      body: `
+Name: ${formData.name}
+Email: ${formData.email}
+Message: ${formData.message}
+
+Sent from Harekrishna Ricemill website contact form.
+      `,
+    };
+
+    // Create mailto link
+    const mailtoLink = `mailto:${emailData.to}?subject=${encodeURIComponent(emailData.subject)}&body=${encodeURIComponent(emailData.body)}`;
+
     setTimeout(() => {
       form.classList.remove("animate-pulse");
-      alert("Thank you for your message! We will get back to you soon.");
+      window.location.href = mailtoLink;
+      alert(
+        "Thank you for your message! Your email client will open to send the message.",
+      );
       setFormData({ name: "", email: "", message: "" });
     }, 500);
   };
@@ -301,8 +321,8 @@ const Index = () => {
             className="text-xl md:text-2xl mb-8 text-rice-100 font-light leading-relaxed max-w-3xl mx-auto animate-in"
             style={{ animationDelay: "0.4s" }}
           >
-            ಸಾಂಪ್ರದಾಯಿಕ ಮೌಲ್ಯಗಳು ಮತ್ತು ಆಧುನಿಕ ತಂತ್ರಜ್ಞಾನದೊಂದಿಗೆ ಪ್ರೀಮಿಯಂ
-            ಗುಣಮಟ್ಟದ ಅಕ್ಕಿ ಸಂಸ್ಕರಣೆ. ಮೂರು ದಶಕಗಳಿಗೂ ಹೆಚ್ಚು ಕಾಲ ಅತ್ಯುತ್ತಮ ಅಕ್ಕಿ
+            ಸಾಂಪ್ರದಾಯಿಕ ಮೌಲ್ಯಗಳು ���ತ್ತು ಆಧುನಿಕ ತಂತ್ರಜ್ಞಾನದೊಂದಿಗೆ ಪ್ರೀಮಿಯಂ
+            ಗುಣ��ಟ್ಟದ ಅಕ್ಕಿ ಸಂಸ್ಕರಣೆ. ಮೂರು ದಶಕಗಳಿಗೂ ಹೆಚ್ಚು ಕಾಲ ಅತ್ಯುತ್ತಮ ಅಕ್ಕಿ
             ಉತ್ಪಾದನೆಗಳೊಂದಿಗೆ ಸಮುದಾಯಗಳಿಗೆ ಸೇವೆ ಸಲ್ಲಿಸುತ್ತಿದೆ.
           </p>
           <div
@@ -361,7 +381,7 @@ const Index = () => {
                 </p>
                 <p className="transform hover:scale-105 transition-transform duration-300 p-4 rounded-lg hover:bg-green-50">
                   ಸಮಂಜಸವಾದ ಬೆಲೆಯಲ್ಲಿ ಅಕ್ಕಿಯನ್ನು ನೀಡುವುದಕ್ಕೆ ಹೆಸರುವಾಸಿಯಾಗಿರುವ
-                  ನಾವು, ವಿಶ್ವಾಸಾರ್ಹತೆ ಮತ್ತು ಶ್ರೇಷ್ಠತೆಗಾಗಿ ಕುಂದಾಪುರದಾದ್ಯಂತ ಬಲವಾದ
+                  ನಾವು, ವಿಶ್ವಾಸಾರ್ಹತೆ ಮತ್ತು ಶ್ರೇಷ್ಠತೆಗಾಗಿ ಕುಂದಾ��ುರದಾದ್ಯಂತ ಬಲವಾದ
                   ಖ್ಯಾತಿಯನ್ನು ಗಳಿಸಿದ್ದೇವೆ.
                 </p>
                 <p className="transform hover:scale-105 transition-transform duration-300 p-4 rounded-lg hover:bg-green-50">
@@ -517,6 +537,33 @@ const Index = () => {
                   "Cost-effective broken rice pieces perfect for making traditional dishes, animal feed, and various culinary preparations.",
                 badge: "Economic Option",
                 color: "from-orange-500 to-orange-600",
+              },
+              {
+                image:
+                  "https://cdn.builder.io/api/v1/assets/56f6efa9d1064da8b2a3be334b211383/rice-790b4a?format=webp&width=800",
+                title: "BVK Kaje Rice (ಕುಚಲಕ್ಕಿ)",
+                description:
+                  "Traditional BVK Kaje Rice, also known as Kuchalakki in Kannada. Premium quality local variety with authentic taste and excellent nutritional value.",
+                badge: "Local Specialty",
+                color: "from-purple-500 to-purple-600",
+              },
+              {
+                image:
+                  "https://cdn.builder.io/api/v1/assets/56f6efa9d1064da8b2a3be334b211383/rice2-37a8a2?format=webp&width=800",
+                title: "BVK Kaje Rice Premium (ಕುಚಲಕ್ಕಿ)",
+                description:
+                  "Hand-selected BVK Kaje Rice grains, known as Kuchalakki in Kannada. Perfect for traditional South Indian dishes with superior texture and flavor.",
+                badge: "Hand Selected",
+                color: "from-indigo-500 to-indigo-600",
+              },
+              {
+                image:
+                  "https://cdn.builder.io/api/v1/assets/56f6efa9d1064da8b2a3be334b211383/rice3-e13bb5?format=webp&width=800",
+                title: "BVK Kaje Rice Special (ಕುಚಲಕ್ಕಿ)",
+                description:
+                  "Our finest BVK Kaje Rice collection, Kuchalakki in Kannada. Specially processed to maintain traditional taste while ensuring modern quality standards.",
+                badge: "Chef's Choice",
+                color: "from-pink-500 to-pink-600",
               },
             ].map((product, index) => (
               <div
