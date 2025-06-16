@@ -6,7 +6,7 @@ import {
   Cloud,
   Sun,
   CloudRain,
-  Snow,
+  Snowflake,
   Thermometer,
 } from "lucide-react";
 
@@ -65,7 +65,7 @@ const Index = () => {
       case "Rain":
         return <CloudRain className="w-6 h-6 text-blue-500" />;
       case "Snow":
-        return <Snow className="w-6 h-6 text-blue-200" />;
+        return <Snowflake className="w-6 h-6 text-blue-200" />;
       default:
         return <Cloud className="w-6 h-6 text-gray-500" />;
     }
