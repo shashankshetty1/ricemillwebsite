@@ -321,7 +321,7 @@ Sent from Harekrishna Ricemill website contact form.
             className="text-xl md:text-2xl mb-8 text-rice-100 font-light leading-relaxed max-w-3xl mx-auto animate-in"
             style={{ animationDelay: "0.4s" }}
           >
-            ಸಾಂಪ್ರದಾಯಿಕ ಮೌಲ್ಯಗಳು ಮತ್ತು ಆಧುನಿಕ ���ಂತ್ರಜ್ಞಾನದೊಂದಿಗೆ ಪ್ರೀಮಿಯಂ
+            ಸಾಂಪ್ರದಾಯಿಕ ಮೌಲ್ಯಗಳು ಮತ್ತು ಆಧುನಿಕ ತಂತ್ರಜ್ಞಾನದೊಂದಿಗೆ ಪ್ರೀಮಿಯಂ
             ಗುಣಮಟ್ಟದ ಅಕ್ಕಿ ಸಂಸ್ಕರಣೆ. ಮೂರು ದಶಕಗಳಿಗೂ ಹೆಚ್ಚು ಕಾಲ ಅತ್ಯುತ್ತಮ ಅಕ್ಕಿ
             ಉತ್ಪಾದನೆಗಳೊಂದಿಗೆ ಸಮುದಾಯಗಳಿಗೆ ಸೇವೆ ಸಲ್ಲಿಸುತ್ತಿದೆ.
           </p>
@@ -375,7 +375,7 @@ Sent from Harekrishna Ricemill website contact form.
               </h2>
               <div className="space-y-6 text-gray-700 text-lg leading-relaxed">
                 <p className="transform hover:scale-105 transition-transform duration-300 p-4 rounded-lg hover:bg-green-50">
-                  ಉಡುಪಿ ಜಿಲ್ಲೆಯ ಕೊರ್ಗಿ ಅರ್ಕೋಲಿಯಲ್ಲಿ ವಿಜಯ್ ಶೆಟ್ಟಿ ಸ್ಥಾಪಿಸಿದ
+                  ಉಡುಪಿ ಜಿಲ್ಲೆಯ ಕೊರ್ಗಿ ಅರ್ಕೋಲಿಯಲ್ಲಿ ���ಿಜಯ್ ಶೆಟ್ಟಿ ಸ್ಥಾಪಿಸಿದ
                   ಹರೇಕೃಷ್ಣ ಅಕ್ಕಿ ಗಿರಣಿಯು ಹಲವಾರು ವರ್ಷಗಳಿಂದ ಸ್ಥಳೀಯ ಸಮುದಾಯಕ್ಕೆ
                   ಉತ್ತಮ ಗುಣಮಟ್ಟದ ಬೇಯಿಸಿದ ಅಕ್ಕಿಯೊಂದಿಗೆ ಸೇವೆ ಸಲ್ಲಿಸುತ್ತಿದೆ.
                 </p>
@@ -737,14 +737,14 @@ Sent from Harekrishna Ricemill website contact form.
               {/* Enhanced Google Map */}
               <div className="glass-effect bg-gray-100 rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-shadow duration-300">
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d124414.96853951778!2d74.6488!3d13.6288!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bbcbb4a3b9a6b43%3A0x6e3b4a5f7c8d9e2a!2sKundapura%2C%20Karnataka!5e0!3m2!1sen!2sin!4v1703123456789!5m2!1sen!2sin"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3509.8281733319204!2d74.77621847455579!3d13.567069101544794!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bbc91ea18e9f76d%3A0x5ed657ad49c4fe99!2sHare%20krishna%20rice%20mill%20arkoli!5e1!3m2!1sen!2sin!4v1745856841770!5m2!1sen!2sin"
                   width="100%"
                   height="300"
                   style={{ border: 0 }}
                   allowFullScreen
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
-                  title="Harekrishna Ricemill Location - Korgi Arkoli, Kundapura"
+                  title="Hare Krishna Rice Mill Arkoli - Exact Location"
                   className="hover:scale-105 transition-transform duration-700"
                 ></iframe>
               </div>
