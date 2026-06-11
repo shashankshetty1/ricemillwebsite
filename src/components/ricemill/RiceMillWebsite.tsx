@@ -823,7 +823,7 @@ function ContactRow({
 
 function Footer() {
   return (
-    <footer className="bg-black py-10 text-white">
+    <footer className="bg-gradient-to-br from-blue-950 via-blue-900 to-slate-950 py-10 text-white">
       <div className="mx-auto grid max-w-7xl gap-8 px-4 sm:px-6 md:grid-cols-3 lg:px-8">
         <div>
           <div className="flex items-center gap-3">
@@ -835,15 +835,15 @@ function Footer() {
             />
             <div>
               <h3 className="text-lg font-black">{brand.name}</h3>
-              <p className="text-xs font-semibold text-gray-200">
+              <p className="text-xs font-semibold text-blue-100">
                 Est. 1990 • Premium Rice Processing
               </p>
             </div>
           </div>
-          <p className="mt-4 max-w-sm text-sm leading-6 text-gray-200">
+          <p className="mt-4 max-w-sm text-sm leading-6 text-blue-100">
             Premium quality rice processing with traditional values and modern technology.
           </p>
-          <div className="mt-4 flex flex-wrap gap-2 text-xs font-bold text-gray-100">
+          <div className="mt-4 flex flex-wrap gap-2 text-xs font-bold text-blue-50">
             <span className="rounded-full bg-white/10 px-3 py-1">✓ Quality Certified</span>
             <span className="rounded-full bg-white/10 px-3 py-1">✓ Family Owned</span>
             <span className="rounded-full bg-white/10 px-3 py-1">✓ 30+ Years</span>
@@ -851,14 +851,14 @@ function Footer() {
         </div>
 
         <div>
-          <h4 className="font-black text-gray-100">Quick Links</h4>
+          <h4 className="font-black text-blue-100">Quick Links</h4>
           <ul className="mt-4 space-y-2 text-sm">
             {navItems.map((link) => (
               <li key={link.id}>
                 <button
                   type="button"
                   onClick={() => scrollToSection(link.id)}
-                  className="rounded text-gray-200 transition hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+                  className="rounded text-blue-100 transition hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
                 >
                   {link.name}
                 </button>
@@ -868,8 +868,8 @@ function Footer() {
         </div>
 
         <div>
-          <h4 className="font-black text-gray-100">Contact Info</h4>
-          <div className="mt-4 space-y-2 text-sm text-gray-200">
+          <h4 className="font-black text-blue-100">Contact Info</h4>
+          <div className="mt-4 space-y-2 text-sm text-blue-100">
             <p>📞 {brand.phonePrimary}, {brand.phoneSecondary}</p>
             <p>✉️ {brand.displayEmail}</p>
             <p>📍 Korgi Arkoli, Kundapura Taluk, Udupi District</p>
@@ -877,7 +877,7 @@ function Footer() {
         </div>
       </div>
 
-      <div className="mx-auto mt-8 max-w-7xl border-t border-white/10 px-4 pt-5 text-center text-sm text-gray-200 sm:px-6 lg:px-8">
+      <div className="mx-auto mt-8 max-w-7xl border-t border-white/10 px-4 pt-5 text-center text-sm text-blue-100 sm:px-6 lg:px-8">
         🌾 © 2024 Harekrishna Ricemill. All rights reserved.
       </div>
     </footer>
