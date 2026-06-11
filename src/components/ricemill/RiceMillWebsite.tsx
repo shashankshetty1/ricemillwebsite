@@ -8,8 +8,10 @@ import {
   MapPin,
   Menu,
   MessageCircle,
+  Moon,
   Phone,
   Star,
+  Sun,
   X,
 } from "lucide-react";
 import {
@@ -69,13 +71,19 @@ function scrollToSection(sectionId: SectionId) {
 function RiceMillWebsite() {
   const activeSection = useActiveSection(sectionIds);
   const { progress, hasScrolled } = useScrollProgress();
+  const { theme, toggleTheme } = useThemeMode();
 
   useScrollReveal();
 
   return (
-    <main className="min-h-screen overflow-x-hidden bg-rice-50 text-green-950 selection:bg-green-700 selection:text-white">
+    <main className="min-h-screen overflow-x-hidden bg-rice-50 text-green-950 selection:bg-green-700 selection:text-white transition-colors duration-500 dark:bg-slate-950 dark:text-green-50">
       <ScrollProgress progress={progress} />
-      <Navigation activeSection={activeSection} hasScrolled={hasScrolled} />
+      <Navigation
+        activeSection={activeSection}
+        hasScrolled={hasScrolled}
+        theme={theme}
+        onToggleTheme={toggleTheme}
+      />
       <HeroSection />
       <AboutSection />
       <ProductsSection />
@@ -84,6 +92,30 @@ function RiceMillWebsite() {
       <FloatingActions showBackToTop={hasScrolled} />
     </main>
   );
+}
+
+function useThemeMode() {
+  const [theme, setTheme] = useState<"light" | "dark">(() => {
+    if (typeof window === "undefined") return "light";
+
+    const savedTheme = window.localStorage.getItem("rice-mill-theme");
+    if (savedTheme === "light" || savedTheme === "dark") return savedTheme;
+
+    return window.matchMedia("(prefers-color-scheme: dark)").matches
+      ? "dark"
+      : "light";
+  });
+
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", theme === "dark");
+    window.localStorage.setItem("rice-mill-theme", theme);
+  }, [theme]);
+
+  const toggleTheme = useCallback(() => {
+    setTheme((current) => (current === "dark" ? "light" : "dark"));
+  }, []);
+
+  return { theme, toggleTheme };
 }
 
 function ScrollProgress({ progress }: { progress: number }) {
@@ -100,9 +132,13 @@ function ScrollProgress({ progress }: { progress: number }) {
 function Navigation({
   activeSection,
   hasScrolled,
+  theme,
+  onToggleTheme,
 }: {
   activeSection: SectionId;
   hasScrolled: boolean;
+  theme: "light" | "dark";
+  onToggleTheme: () => void;
 }) {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -116,11 +152,11 @@ function Navigation({
       className={cn(
         "fixed inset-x-0 top-0 z-50 border-b transition-all duration-300",
         hasScrolled
-          ? "border-green-900/10 bg-white/90 shadow-lg shadow-green-950/5 backdrop-blur-xl"
-          : "border-white/10 bg-white/75 backdrop-blur-md",
+          ? "border-green-900/10 bg-white/90 shadow-lg shadow-green-950/5 backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/88 dark:shadow-black/30"
+          : "border-white/10 bg-white/75 backdrop-blur-md dark:bg-slate-950/65",
       )}
     >
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:h-20 lg:px-8">
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:h-20 lg:px-8 motion-safe:animate-nav-drop">
         <button
           type="button"
           onClick={() => handleNavClick("home")}
@@ -130,10 +166,10 @@ function Navigation({
           <img
             src={brand.logo}
             alt="Harekrishna Ricemill Logo"
-            className="h-11 w-11 shrink-0 rounded-full border border-green-900/10 bg-white object-contain p-1 shadow-sm transition duration-300 group-hover:scale-105"
+            className="h-11 w-11 shrink-0 rounded-full border border-green-900/10 bg-white object-contain p-1 shadow-sm transition duration-300 group-hover:scale-105 dark:border-white/20"
             loading="eager"
           />
-          <span className="truncate text-base font-extrabold text-green-900 sm:text-lg">
+          <span className="truncate text-base font-extrabold text-green-900 sm:text-lg dark:text-green-50">
             {brand.name}
           </span>
         </button>
@@ -149,22 +185,25 @@ function Navigation({
           ))}
         </nav>
 
-        <button
-          type="button"
-          onClick={() => setIsOpen((value) => !value)}
-          className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-green-900/10 bg-white/85 text-green-900 shadow-sm transition hover:bg-green-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-700 focus-visible:ring-offset-2 md:hidden"
-          aria-expanded={isOpen}
-          aria-controls="mobile-navigation"
-          aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
-        >
-          {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-        </button>
+        <div className="flex items-center gap-2">
+          <ThemeToggle theme={theme} onToggle={onToggleTheme} />
+          <button
+            type="button"
+            onClick={() => setIsOpen((value) => !value)}
+            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-green-900/10 bg-white/85 text-green-900 shadow-sm transition hover:bg-green-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-700 focus-visible:ring-offset-2 dark:border-white/15 dark:bg-white/10 dark:text-white dark:hover:bg-white/15 md:hidden"
+            aria-expanded={isOpen}
+            aria-controls="mobile-navigation"
+            aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
+          >
+            {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
+        </div>
       </div>
 
       <div
         id="mobile-navigation"
         className={cn(
-          "grid overflow-hidden border-t border-green-900/10 bg-white/95 backdrop-blur-xl transition-[grid-template-rows] duration-300 md:hidden",
+          "grid overflow-hidden border-t border-green-900/10 bg-white/95 backdrop-blur-xl transition-[grid-template-rows] duration-300 dark:border-white/10 dark:bg-slate-950/95 md:hidden",
           isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]",
         )}
       >
@@ -179,7 +218,7 @@ function Navigation({
                   "rounded-xl px-4 py-3 text-left text-sm font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-700",
                   activeSection === item.id
                     ? "bg-green-700 text-white shadow-md shadow-green-900/15"
-                    : "text-green-900 hover:bg-green-50",
+                    : "text-green-900 hover:bg-green-50 dark:text-green-50 dark:hover:bg-white/10",
                 )}
               >
                 {item.name}
@@ -189,6 +228,39 @@ function Navigation({
         </nav>
       </div>
     </header>
+  );
+}
+
+function ThemeToggle({
+  theme,
+  onToggle,
+}: {
+  theme: "light" | "dark";
+  onToggle: () => void;
+}) {
+  const isDark = theme === "dark";
+
+  return (
+    <button
+      type="button"
+      onClick={onToggle}
+      className="group relative inline-flex h-11 w-11 items-center justify-center overflow-hidden rounded-full border border-green-900/10 bg-white/85 text-green-900 shadow-sm transition hover:-translate-y-0.5 hover:bg-green-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-700 focus-visible:ring-offset-2 dark:border-white/15 dark:bg-white/10 dark:text-amber-100 dark:hover:bg-white/15"
+      aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
+      title={isDark ? "Light mode" : "Dark mode"}
+    >
+      <Sun
+        className={cn(
+          "absolute h-5 w-5 transition duration-500",
+          isDark ? "rotate-90 scale-0 opacity-0" : "rotate-0 scale-100 opacity-100",
+        )}
+      />
+      <Moon
+        className={cn(
+          "absolute h-5 w-5 transition duration-500",
+          isDark ? "rotate-0 scale-100 opacity-100" : "-rotate-90 scale-0 opacity-0",
+        )}
+      />
+    </button>
   );
 }
 
@@ -207,7 +279,7 @@ function NavButton({
       onClick={() => onClick(item.id)}
       className={cn(
         "relative rounded-full px-4 py-2 text-sm font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-700 focus-visible:ring-offset-2",
-        isActive ? "bg-green-800 text-white shadow-md shadow-green-900/15" : "text-green-800 hover:bg-green-50",
+        isActive ? "bg-green-800 text-white shadow-md shadow-green-900/15" : "text-green-800 hover:bg-green-50 dark:text-green-50 dark:hover:bg-white/10",
       )}
       aria-current={isActive ? "page" : undefined}
     >
@@ -298,18 +370,21 @@ function HeroSection() {
 
 function AboutSection() {
   return (
-    <section id="about" className="section-shell bg-white">
+    <section id="about" className="section-shell bg-white transition-colors duration-500 dark:bg-slate-950">
+      <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 dark:opacity-100">
+        <div className="absolute left-1/2 top-20 h-72 w-72 -translate-x-1/2 rounded-full bg-green-500/10 blur-3xl motion-safe:animate-soft-float" />
+      </div>
       <div className="section-container grid gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
         <div data-reveal="slide-up">
           <SectionEyebrow>Our Story & Mission</SectionEyebrow>
           <h2 className="section-title">
             Traditional values, modern processing, dependable quality.
           </h2>
-          <div className="mt-6 space-y-4 text-base leading-8 text-green-950/75 sm:text-lg">
+          <div className="mt-6 space-y-4 text-base leading-8 text-green-950/75 sm:text-lg dark:text-green-50/75">
             {aboutParagraphs.map((paragraph) => (
               <p
                 key={paragraph}
-                className="rounded-2xl border border-green-900/5 bg-rice-50/70 p-5 shadow-sm transition duration-300 hover:-translate-y-0.5 hover:border-green-700/15 hover:bg-green-50"
+                className="rounded-2xl border border-green-900/5 bg-rice-50/70 p-5 shadow-sm transition duration-300 hover:-translate-y-0.5 hover:border-green-700/15 hover:bg-green-50 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
               >
                 {paragraph}
               </p>
@@ -358,17 +433,17 @@ function AnimatedStatCard({ stat, delay }: { stat: Stat; delay: number }) {
   return (
     <div
       ref={ref}
-      className="rounded-2xl border border-green-900/10 bg-white p-5 text-center shadow-lg shadow-green-950/5"
+      className="rounded-2xl border border-green-900/10 bg-white p-5 text-center shadow-lg shadow-green-950/5 transition duration-300 hover:-translate-y-1 dark:border-white/10 dark:bg-white/5 dark:shadow-black/20"
       style={{ transitionDelay: `${delay}ms` }}
     >
       <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-green-600 to-emerald-700 text-white shadow-lg shadow-green-900/20">
         <Icon className="h-6 w-6" />
       </div>
-      <p className="mt-4 text-3xl font-black text-green-900">
+      <p className="mt-4 text-3xl font-black text-green-900 dark:text-green-50">
         {value}
         {stat.suffix}
       </p>
-      <p className="mt-1 text-sm font-semibold text-green-950/60">{stat.label}</p>
+      <p className="mt-1 text-sm font-semibold text-green-950/60 dark:text-green-50/60">{stat.label}</p>
     </div>
   );
 }
@@ -413,7 +488,7 @@ function StoryCarousel({ images }: { images: StoryImage[] }) {
 
   return (
     <div
-      className="group relative overflow-hidden rounded-[2rem] border border-green-900/10 bg-green-950 shadow-2xl shadow-green-950/15"
+      className="group relative overflow-hidden rounded-[2rem] border border-green-900/10 bg-green-950 shadow-2xl shadow-green-950/15 dark:border-white/10 dark:shadow-black/40"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       onFocus={() => setIsPaused(true)}
@@ -445,6 +520,11 @@ function StoryCarousel({ images }: { images: StoryImage[] }) {
           />
         ))}
         <div className="absolute inset-0 bg-gradient-to-t from-green-950/88 via-green-950/12 to-transparent" />
+        <div
+          className="absolute left-0 top-0 h-1 bg-gradient-to-r from-lime-300 to-green-400 transition-[width] duration-300"
+          style={{ width: `${((currentSlide + 1) / images.length) * 100}%` }}
+          aria-hidden="true"
+        />
 
         <button
           type="button"
@@ -496,14 +576,15 @@ function StoryCarousel({ images }: { images: StoryImage[] }) {
 
 function ProductsSection() {
   return (
-    <section id="products" className="section-shell bg-gradient-to-b from-rice-50 via-green-50 to-white">
+    <section id="products" className="section-shell bg-gradient-to-b from-rice-50 via-green-50 to-white transition-colors duration-500 dark:from-slate-950 dark:via-green-950/35 dark:to-slate-950">
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-[linear-gradient(90deg,transparent,rgba(34,197,94,0.12),transparent)] motion-safe:animate-light-sweep" />
       <div className="section-container">
         <div className="mx-auto max-w-3xl text-center" data-reveal="slide-up">
           <SectionEyebrow>Our Premium Products</SectionEyebrow>
           <h2 className="section-title">
             Carefully processed rice varieties for everyday kitchens and traditional meals.
           </h2>
-          <p className="mt-5 text-lg leading-8 text-green-950/65">
+          <p className="mt-5 text-lg leading-8 text-green-950/65 dark:text-green-50/70">
             Carefully processed and quality-tested rice varieties to meet all
             your culinary needs
           </p>
@@ -528,7 +609,7 @@ const ProductCard = memo(function ProductCard({
 }) {
   return (
     <article
-      className="group relative overflow-hidden rounded-[1.75rem] border border-green-900/10 bg-white shadow-xl shadow-green-950/5 transition duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-green-950/10"
+      className="group relative overflow-hidden rounded-[1.75rem] border border-green-900/10 bg-white shadow-xl shadow-green-950/5 transition duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-green-950/10 dark:border-white/10 dark:bg-white/5 dark:shadow-black/25"
       data-reveal="slide-up"
       style={{ transitionDelay: `${index * 110}ms` }}
     >
@@ -539,6 +620,7 @@ const ProductCard = memo(function ProductCard({
           className="h-full w-full object-cover transition duration-700 group-hover:scale-110"
           loading="lazy"
         />
+        <div className="absolute inset-y-0 -left-1/2 w-1/3 rotate-12 bg-white/25 opacity-0 blur-sm transition duration-700 group-hover:left-[115%] group-hover:opacity-100" />
         <div className="absolute inset-0 bg-gradient-to-t from-green-950/55 to-transparent opacity-70" />
         <span
           className={cn(
@@ -555,10 +637,10 @@ const ProductCard = memo(function ProductCard({
         </div>
       </div>
       <div className="p-6">
-        <h3 className="text-xl font-black leading-7 text-green-900">
+        <h3 className="text-xl font-black leading-7 text-green-900 dark:text-green-50">
           {product.title}
         </h3>
-        <p className="mt-4 min-h-[96px] text-sm leading-7 text-green-950/65">
+        <p className="mt-4 min-h-[96px] text-sm leading-7 text-green-950/65 dark:text-green-50/70">
           {product.description}
         </p>
         <button
@@ -576,12 +658,12 @@ const ProductCard = memo(function ProductCard({
 
 function ContactSection() {
   return (
-    <section id="contact" className="section-shell bg-white">
+    <section id="contact" className="section-shell bg-white transition-colors duration-500 dark:bg-slate-950">
       <div className="section-container">
         <div className="mx-auto max-w-3xl text-center" data-reveal="slide-up">
           <SectionEyebrow>Get in Touch</SectionEyebrow>
           <h2 className="section-title">Visit, call, or send a message to Harekrishna Ricemill.</h2>
-          <p className="mt-5 text-lg leading-8 text-green-950/65">
+          <p className="mt-5 text-lg leading-8 text-green-950/65 dark:text-green-50/70">
             We'd love to hear from you. Send us a message and we'll respond as
             soon as possible.
           </p>
@@ -660,7 +742,7 @@ Sent from Harekrishna Ricemill website contact form.
   return (
     <form
       onSubmit={handleSubmit}
-      className="rounded-[1.75rem] border border-green-900/10 bg-gradient-to-br from-rice-50 to-green-50 p-5 shadow-xl shadow-green-950/5 sm:p-8"
+      className="rounded-[1.75rem] border border-green-900/10 bg-gradient-to-br from-rice-50 to-green-50 p-5 shadow-xl shadow-green-950/5 transition-colors duration-500 dark:border-white/10 dark:from-white/10 dark:to-green-950/35 dark:shadow-black/25 sm:p-8"
       data-reveal="slide-up"
       noValidate
     >
@@ -683,7 +765,7 @@ Sent from Harekrishna Ricemill website contact form.
           onChange={(value) => updateField("email", value)}
         />
         <div>
-          <label htmlFor="message" className="text-sm font-bold text-green-900">
+          <label htmlFor="message" className="text-sm font-bold text-green-900 dark:text-green-50">
             Message
           </label>
           <textarea
@@ -693,7 +775,7 @@ Sent from Harekrishna Ricemill website contact form.
             onChange={(event) => updateField("message", event.target.value)}
             aria-invalid={Boolean(errors.message)}
             aria-describedby={errors.message ? "message-error" : undefined}
-            className="mt-2 w-full resize-none rounded-2xl border border-green-900/15 bg-white px-4 py-3 text-green-950 shadow-sm outline-none transition placeholder:text-green-950/35 focus:border-green-700 focus:ring-4 focus:ring-green-700/10"
+            className="mt-2 w-full resize-none rounded-2xl border border-green-900/15 bg-white px-4 py-3 text-green-950 shadow-sm outline-none transition placeholder:text-green-950/35 focus:border-green-700 focus:ring-4 focus:ring-green-700/10 dark:border-white/10 dark:bg-slate-950/70 dark:text-green-50 dark:placeholder:text-green-50/35"
             required
           />
           {errors.message ? (
@@ -737,7 +819,7 @@ function TextField({
 
   return (
     <div>
-      <label htmlFor={id} className="text-sm font-bold text-green-900">
+      <label htmlFor={id} className="text-sm font-bold text-green-900 dark:text-green-50">
         {label}
       </label>
       <input
@@ -748,7 +830,7 @@ function TextField({
         onChange={(event) => onChange(event.target.value)}
         aria-invalid={Boolean(error)}
         aria-describedby={error ? errorId : undefined}
-        className="mt-2 h-12 w-full rounded-2xl border border-green-900/15 bg-white px-4 text-green-950 shadow-sm outline-none transition placeholder:text-green-950/35 focus:border-green-700 focus:ring-4 focus:ring-green-700/10"
+        className="mt-2 h-12 w-full rounded-2xl border border-green-900/15 bg-white px-4 text-green-950 shadow-sm outline-none transition placeholder:text-green-950/35 focus:border-green-700 focus:ring-4 focus:ring-green-700/10 dark:border-white/10 dark:bg-slate-950/70 dark:text-green-50 dark:placeholder:text-green-50/35"
         required
       />
       {error ? (
@@ -763,8 +845,8 @@ function TextField({
 function ContactDetails() {
   return (
     <div className="grid gap-6" data-reveal="slide-left">
-      <div className="rounded-[1.75rem] border border-green-900/10 bg-white p-6 shadow-xl shadow-green-950/5 sm:p-8">
-        <h3 className="text-2xl font-black text-green-900">Contact Information</h3>
+      <div className="rounded-[1.75rem] border border-green-900/10 bg-white p-6 shadow-xl shadow-green-950/5 transition-colors duration-500 dark:border-white/10 dark:bg-white/5 dark:shadow-black/25 sm:p-8">
+        <h3 className="text-2xl font-black text-green-900 dark:text-green-50">Contact Information</h3>
         <div className="mt-6 grid gap-5">
           <ContactRow icon={Phone}>
             <p className="font-bold">📞 {brand.phonePrimary}</p>
@@ -785,7 +867,7 @@ function ContactDetails() {
         </div>
       </div>
 
-      <div className="overflow-hidden rounded-[1.75rem] border border-green-900/10 bg-green-50 shadow-xl shadow-green-950/5">
+      <div className="overflow-hidden rounded-[1.75rem] border border-green-900/10 bg-green-50 shadow-xl shadow-green-950/5 transition-colors duration-500 dark:border-white/10 dark:bg-white/5 dark:shadow-black/25">
         <iframe
           src={brand.mapSrc}
           width="100%"
@@ -816,7 +898,7 @@ function ContactRow({
       <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-green-800 text-white shadow-lg shadow-green-900/15">
         <Icon className="h-5 w-5" />
       </div>
-      <div className="text-green-950/75">{children}</div>
+      <div className="text-green-950/75 dark:text-green-50/75">{children}</div>
     </div>
   );
 }
@@ -878,7 +960,7 @@ function Footer() {
       </div>
 
       <div className="mx-auto mt-8 max-w-7xl border-t border-white/10 px-4 pt-5 text-center text-sm text-blue-100 sm:px-6 lg:px-8">
-        🌾 © 2024 Harekrishna Ricemill. All rights reserved.
+        🌾 © 2026 Harekrishna Ricemill. All rights reserved.
       </div>
     </footer>
   );
@@ -897,7 +979,7 @@ function FloatingActions({ showBackToTop }: { showBackToTop: boolean }) {
         href={whatsappUrl}
         target="_blank"
         rel="noreferrer"
-        className="inline-flex h-14 min-h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-xl shadow-green-950/20 transition duration-300 hover:-translate-y-1 hover:shadow-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-700 focus-visible:ring-offset-2"
+        className="inline-flex h-14 min-h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-xl shadow-green-950/20 transition duration-300 hover:-translate-y-1 hover:shadow-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-700 focus-visible:ring-offset-2 motion-safe:animate-gentle-pulse dark:shadow-black/35"
         aria-label="Contact Harekrishna Ricemill on WhatsApp"
       >
         <MessageCircle className="h-6 w-6" />
